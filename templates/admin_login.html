@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 15, 40, 0.68),
+                    rgba(0, 20, 55, 0.82)
+                ),
+                url("/static/images/bglogin.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        /* =========================
+           ADMIN LOGIN CARD
+        ========================= */
+
+        .admin-box {
+
+            width: 420px;
+            max-width: 100%;
+
+            padding: 42px 38px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 22px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 55px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+
+            backdrop-filter: blur(10px);
+
+            animation: adminAppear 0.8s ease;
+        }
+
+
+        /* =========================
+           ANIMATION
+        ========================= */
+
+        @keyframes adminAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+
+        /* =========================
+           ADMIN ICON
+        ========================= */
+
+        .admin-icon {
+
+            width: 76px;
+            height: 76px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #001f4d,
+                    #0057a8
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 35px;
+
+            box-shadow:
+                0 8px 22px rgba(0, 43, 91, 0.35);
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        .admin-box h1 {
+
+            color: #002b5b;
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+        }
+
+
+        .welcome {
+
+            color: #0057a8;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            color: #666;
+
+            font-size: 14px;
+
+            margin-bottom: 27px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           INPUT GROUP
+        ========================= */
+
+        .input-group {
+
+            text-align: left;
+
+            margin-bottom: 16px;
+        }
+
+
+        .input-group label {
+
+            display: block;
+
+            color: #002b5b;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        .admin-box input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #d5dbe3;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: #f8fafc;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .admin-box input:focus {
+
+            border-color: #0057a8;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 87, 168, 0.12);
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .admin-box button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #002b5b,
+                    #0057a8
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 8px 18px rgba(0, 43, 91, 0.25);
+        }
+
+
+        .admin-box button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(0, 43, 91, 0.35);
+        }
+
+
+        /* =========================
+           SECURITY
+        ========================= */
+
+        .security {
+
+            margin-top: 22px;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            background: #f1f6fb;
+
+            color: #666;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           BACK TO WEBSITE
+        ========================= */
+
+        .back-home {
+
+            display: inline-block;
+
+            margin-top: 18px;
+
+            color: #002b5b;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .back-home:hover {
+
+            color: #f5b400;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .admin-box {
+
+                padding: 32px 24px;
+            }
+
+            .admin-box h1 {
+
+                font-size: 25px;
+            }
+
+            .admin-icon {
+
+                width: 65px;
+                height: 65px;
+
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-box">
+
+
+    <!-- ADMIN ICON -->
+
+    <div class="admin-icon">
+        🛡️
+    </div>
+
+
+    <!-- HEADING -->
+
+    <h1>
+        Admin Login
+    </h1>
+
+
+    <p class="welcome">
+        Welcome, Dhrub 👋
+    </p>
+
+
+    <p class="subtitle">
+        Login to manage Dhrub Defence Career Finder
+    </p>
+
+
+    <!-- LOGIN FORM -->
+
+    <form action="/admin-login" method="POST">
+
+
+        <div class="input-group">
+
+            <label>
+                Admin Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter admin username"
+                required>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
+                Admin Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter admin password"
+                required>
+
+        </div>
+
+
+        <button type="submit">
+            Login to Admin Panel →
+        </button>
+
+
+    </form>
+
+
+    <!-- SECURITY -->
+
+    <div class="security">
+        🔒 <strong>Secure Admin Area</strong><br>
+        Only authorized administrators can access this panel.
+    </div>
+
+
+    <!-- BACK -->
+
+    <a href="/" class="back-home">
+        ← Back to Website
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>

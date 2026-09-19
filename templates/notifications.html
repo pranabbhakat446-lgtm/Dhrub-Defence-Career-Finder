@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Defence Notifications | Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* =========================================
+           NOTIFICATION PAGE
+        ========================================= */
+
+        .notification-page{
+            min-height:calc(100vh - 80px);
+            background:#f4f7fb;
+            padding:70px 7%;
+        }
+
+        .notification-header{
+            text-align:center;
+            margin-bottom:50px;
+        }
+
+        .notification-header h1{
+            color:#001F54;
+            font-size:42px;
+            margin-bottom:12px;
+        }
+
+        .notification-header p{
+            color:#667085;
+            font-size:17px;
+        }
+
+        .notification-header .line{
+            width:70px;
+            height:4px;
+            background:#FFD700;
+            margin:18px auto;
+            border-radius:5px;
+        }
+
+        /* =========================================
+           FILTER BADGE
+        ========================================= */
+
+        .filter-box{
+            text-align:center;
+            margin-bottom:35px;
+        }
+
+        .filter-badge{
+            display:inline-block;
+            background:#001F54;
+            color:white;
+            padding:10px 22px;
+            border-radius:25px;
+            font-size:15px;
+            font-weight:600;
+        }
+
+        /* =========================================
+           JOB GRID
+        ========================================= */
+
+        .notification-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:28px;
+            max-width:1200px;
+            margin:auto;
+        }
+
+        /* =========================================
+           JOB CARD
+        ========================================= */
+
+        .notification-card{
+            background:white;
+            border-radius:18px;
+            padding:30px;
+            border:1px solid #e4e9f0;
+            box-shadow:0 10px 30px rgba(0,31,84,.09);
+            position:relative;
+            overflow:hidden;
+            transition:.35s;
+        }
+
+        .notification-card::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:5px;
+            background:#FFD700;
+        }
+
+        .notification-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 18px 40px rgba(0,31,84,.16);
+        }
+
+        .notification-icon{
+            width:52px;
+            height:52px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#eef4fb;
+            border-radius:50%;
+            font-size:25px;
+            margin-bottom:18px;
+        }
+
+        .notification-card h3{
+            color:#001F54;
+            font-size:21px;
+            line-height:1.4;
+            margin-bottom:20px;
+        }
+
+        .job-detail{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin:13px 0;
+            color:#555;
+            font-size:15px;
+        }
+
+        .job-detail strong{
+            color:#001F54;
+        }
+
+        .job-detail .detail-icon{
+            width:28px;
+            font-size:17px;
+        }
+
+        /* =========================================
+           APPLY BUTTON
+        ========================================= */
+
+        .apply-btn{
+            display:block;
+            text-align:center;
+            text-decoration:none;
+            margin-top:25px;
+            background:#001F54;
+            color:white;
+            padding:13px 20px;
+            border-radius:9px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .apply-btn:hover{
+            background:#FFD700;
+            color:#001F54;
+            transform:translateY(-2px);
+        }
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .empty-notification{
+            max-width:550px;
+            margin:30px auto;
+            background:white;
+            padding:50px 30px;
+            text-align:center;
+            border-radius:18px;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        .empty-notification .empty-icon{
+            font-size:50px;
+            margin-bottom:15px;
+        }
+
+        .empty-notification h3{
+            color:#001F54;
+            font-size:24px;
+            margin-bottom:10px;
+        }
+
+        .empty-notification p{
+            color:#666;
+            line-height:1.6;
+        }
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
+        .back-home{
+            text-align:center;
+            margin-top:45px;
+        }
+
+        .back-home a{
+            display:inline-block;
+            text-decoration:none;
+            color:#001F54;
+            border:2px solid #001F54;
+            padding:11px 25px;
+            border-radius:8px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .back-home a:hover{
+            background:#001F54;
+            color:white;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media(max-width:600px){
+
+            .notification-page{
+                padding:50px 20px;
+            }
+
+            .notification-header h1{
+                font-size:31px;
+            }
+
+            .notification-header p{
+                font-size:15px;
+            }
+
+            .notification-card{
+                padding:25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<nav>
+
+    <div class="logo">
+        🛡️ Dhrub <span>Defence Career Finder</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/home">Home</a>
+        </li>
+
+        <li>
+            <a href="/eligibility">Eligibility</a>
+        </li>
+
+        <li>
+            <a href="/notifications">Notifications</a>
+        </li>
+
+        <li>
+            <a href="/contact">Contact</a>
+        </li>
+
+        <li>
+            <a href="/logout">Logout</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================================
+     NOTIFICATIONS
+========================================= -->
+
+<section class="notification-page">
+
+
+    <div class="notification-header">
+
+        <h1>
+            Latest Defence Notifications
+        </h1>
+
+        <div class="line"></div>
+
+        <p>
+            Find the latest Defence recruitment opportunities
+            in one place.
+        </p>
+
+    </div>
+
+
+    <!-- FILTER INFORMATION -->
+
+    {% if organization %}
+
+    <div class="filter-box">
+
+        <span class="filter-badge">
+            Showing {{ organization }} Vacancies
+        </span>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- JOB CARDS -->
+
+    {% if jobs %}
+
+    <div class="notification-grid">
+
+
+        {% for job in jobs %}
+
+        <div class="notification-card">
+
+
+            <div class="notification-icon">
+
+                {% if job.organization == "Army" %}
+                    🪖
+                {% elif job.organization == "Navy" %}
+                    ⚓
+                {% elif job.organization == "Air Force" %}
+                    ✈️
+                {% else %}
+                    🇮🇳
+                {% endif %}
+
+            </div>
+
+
+            <h3>
+                {{ job.title }}
+            </h3>
+
+
+            <div class="job-detail">
+
+                <span class="detail-icon">
+                    🏢
+                </span>
+
+                <span>
+                    <strong>Organization:</strong>
+                    {{ job.organization }}
+                </span>
+
+            </div>
+
+
+            <div class="job-detail">
+
+                <span class="detail-icon">
+                    📅
+                </span>
+
+                <span>
+                    <strong>Application Start:</strong>
+                    {{ job.start_date }}
+                </span>
+
+            </div>
+
+
+            <div class="job-detail">
+
+                <span class="detail-icon">
+                    ⏰
+                </span>
+
+                <span>
+                    <strong>Last Date:</strong>
+                    {{ job.last_date }}
+                </span>
+
+            </div>
+
+
+            <a href="{{ job.apply_link }}"
+               target="_blank"
+               class="apply-btn">
+
+                Apply Now →
+                
+            </a>
+
+
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- EMPTY -->
+
+    <div class="empty-notification">
+
+        <div class="empty-icon">
+            📭
+        </div>
+
+        <h3>
+            No Vacancy Available
+        </h3>
+
+        <p>
+            There are currently no Defence vacancies
+            available in this category.
+        </p>
+
+    </div>
+
+
+    {% endif %}
+
+
+
+    <!-- BACK HOME -->
+
+    <div class="back-home">
+
+        <a href="/home">
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+</section>
+
+
+</body>
+
+</html>

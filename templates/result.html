@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Eligibility Result | Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* =========================================
+           RESULT PAGE
+        ========================================= */
+
+        .result-page{
+            min-height:calc(100vh - 80px);
+            background:linear-gradient(135deg,#f4f7fb,#eaf1f8);
+            padding:70px 20px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .result-wrapper{
+            width:100%;
+            max-width:800px;
+        }
+
+        /* =========================================
+           RESULT CARD
+        ========================================= */
+
+        .result-card{
+            background:white;
+            border-radius:22px;
+            padding:45px;
+            text-align:center;
+            box-shadow:0 18px 45px rgba(0,31,84,.12);
+            border:1px solid #e2e9f1;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .result-card::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:6px;
+            background:#FFD700;
+        }
+
+        /* =========================================
+           ICON
+        ========================================= */
+
+        .result-icon{
+            width:80px;
+            height:80px;
+            margin:5px auto 20px;
+            border-radius:50%;
+            background:#eef5fb;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:38px;
+        }
+
+        /* =========================================
+           HEADING
+        ========================================= */
+
+        .result-card h1{
+            color:#001F54;
+            font-size:38px;
+            margin-bottom:12px;
+        }
+
+        .gold-line{
+            width:70px;
+            height:4px;
+            background:#FFD700;
+            border-radius:10px;
+            margin:15px auto 25px;
+        }
+
+        .success-title{
+            color:#15803d;
+            font-size:25px;
+            margin-bottom:12px;
+        }
+
+        .result-description{
+            color:#667085;
+            font-size:16px;
+            line-height:1.6;
+            margin-bottom:28px;
+        }
+
+        /* =========================================
+           JOB LIST
+        ========================================= */
+
+        .job-list{
+            list-style:none;
+            padding:0;
+            margin:0 auto 30px;
+            max-width:600px;
+        }
+
+        .job-item{
+            display:flex;
+            align-items:center;
+            gap:15px;
+            text-align:left;
+            background:#f7fafc;
+            border:1px solid #e1e8f0;
+            border-radius:12px;
+            padding:16px 20px;
+            margin:12px 0;
+            color:#001F54;
+            font-size:16px;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .job-item:hover{
+            transform:translateX(5px);
+            border-color:#FFD700;
+            box-shadow:0 7px 18px rgba(0,31,84,.08);
+        }
+
+        .job-check{
+            width:32px;
+            height:32px;
+            min-width:32px;
+            border-radius:50%;
+            background:#dcfce7;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:17px;
+        }
+
+        /* =========================================
+           NO RESULT
+        ========================================= */
+
+        .no-result-icon{
+            width:80px;
+            height:80px;
+            margin:5px auto 20px;
+            border-radius:50%;
+            background:#fff4f4;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:38px;
+        }
+
+        .no-result-title{
+            color:#dc2626;
+            font-size:25px;
+            margin-bottom:12px;
+        }
+
+        .no-result-text{
+            color:#667085;
+            font-size:16px;
+            line-height:1.6;
+            max-width:550px;
+            margin:0 auto 25px;
+        }
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .result-actions{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            flex-wrap:wrap;
+            margin-top:30px;
+        }
+
+        .result-btn{
+            display:inline-block;
+            text-decoration:none;
+            padding:13px 25px;
+            border-radius:9px;
+            font-weight:700;
+            transition:.3s;
+        }
+
+        .primary-btn{
+            background:#001F54;
+            color:white;
+        }
+
+        .primary-btn:hover{
+            background:#FFD700;
+            color:#001F54;
+            transform:translateY(-2px);
+        }
+
+        .secondary-btn{
+            border:2px solid #001F54;
+            color:#001F54;
+            background:white;
+        }
+
+        .secondary-btn:hover{
+            background:#001F54;
+            color:white;
+        }
+
+        /* =========================================
+           INFORMATION
+        ========================================= */
+
+        .result-note{
+            margin-top:30px;
+            padding:16px 20px;
+            background:#f4f8fc;
+            border-left:4px solid #FFD700;
+            border-radius:8px;
+            color:#666;
+            font-size:13px;
+            line-height:1.6;
+            text-align:left;
+        }
+
+        .result-note strong{
+            color:#001F54;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media(max-width:600px){
+
+            .result-page{
+                padding:45px 15px;
+            }
+
+            .result-card{
+                padding:35px 20px;
+            }
+
+            .result-card h1{
+                font-size:30px;
+            }
+
+            .success-title,
+            .no-result-title{
+                font-size:21px;
+            }
+
+            .result-description,
+            .no-result-text{
+                font-size:15px;
+            }
+
+            .job-item{
+                padding:14px;
+                font-size:15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<nav>
+
+    <div class="logo">
+        🛡️ Dhrub <span>Defence Career Finder</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/home">Home</a>
+        </li>
+
+        <li>
+            <a href="/eligibility">Eligibility</a>
+        </li>
+
+        <li>
+            <a href="/notifications">Notifications</a>
+        </li>
+
+        <li>
+            <a href="/contact">Contact</a>
+        </li>
+
+        <li>
+            <a href="/">Logout</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================================
+     RESULT SECTION
+========================================= -->
+
+<section class="result-page">
+
+    <div class="result-wrapper">
+
+        <div class="result-card">
+
+
+            {% if jobs %}
+
+                <!-- SUCCESS -->
+
+                <div class="result-icon">
+                    🎉
+                </div>
+
+                <h1>
+                    Your Eligibility Result
+                </h1>
+
+                <div class="gold-line"></div>
+
+                <h2 class="success-title">
+                    Congratulations! 🎖️
+                </h2>
+
+                <p class="result-description">
+                    Based on the details you entered,
+                    you may be eligible for the following
+                    Defence career opportunities:
+                </p>
+
+
+                <!-- JOB LIST -->
+
+                <ul class="job-list">
+
+                    {% for job in jobs %}
+
+                        <li class="job-item">
+
+                            <span class="job-check">
+                                ✓
+                            </span>
+
+                            <span>
+                                {{ job }}
+                            </span>
+
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+
+            {% else %}
+
+                <!-- NO RESULT -->
+
+                <div class="no-result-icon">
+                    🔍
+                </div>
+
+                <h1>
+                    Your Eligibility Result
+                </h1>
+
+                <div class="gold-line"></div>
+
+                <h2 class="no-result-title">
+                    No Matching Defence Job Found
+                </h2>
+
+                <p class="no-result-text">
+                    Based on the details you entered,
+                    no matching Defence opportunity was found
+                    by the current eligibility criteria.
+                    You can try checking again with different details.
+                </p>
+
+            {% endif %}
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="result-actions">
+
+                <a href="/eligibility"
+                   class="result-btn primary-btn">
+
+                    🔄 Check Again
+
+                </a>
+
+                <a href="/notifications"
+                   class="result-btn secondary-btn">
+
+                    📢 View Notifications
+
+                </a>
+
+            </div>
+
+
+            <!-- NOTE -->
+
+            <div class="result-note">
+
+                <strong>💡 Important:</strong>
+                This eligibility checker provides results based on
+                the criteria currently configured on the website.
+                Always read the official recruitment notification
+                for the latest age, qualification, gender and other
+                eligibility requirements.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

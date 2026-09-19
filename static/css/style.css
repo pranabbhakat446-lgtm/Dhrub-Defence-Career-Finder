@@ -1,0 +1,598 @@
+/* =====================================================
+   DHRUB DEFENCE CAREER FINDER
+   PROFESSIONAL WEBSITE CSS
+   ===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f5f7fa;
+    color:#222;
+    overflow-x:hidden;
+}
+
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+
+nav{
+    width:100%;
+    min-height:80px;
+    background:linear-gradient(135deg,#00152f,#002b5b);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+
+.logo{
+    color:white;
+    font-size:27px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:#FFD700;
+}
+
+nav ul{
+    display:flex;
+    align-items:center;
+    list-style:none;
+}
+
+nav ul li{
+    margin-left:30px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:600;
+    padding:10px 4px;
+    position:relative;
+    transition:.3s;
+}
+
+nav ul li a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0;
+    height:2px;
+    background:#FFD700;
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    color:#FFD700;
+}
+
+nav ul li a:hover::after{
+    width:100%;
+}
+
+/* =====================================================
+   HERO SECTION
+   ===================================================== */
+
+.hero{
+    width:100%;
+    min-height:90vh;
+    background:url("../images/defence-bg.jpg");
+    background-size:cover;
+    background-position:center;
+    position:relative;
+}
+
+.hero-overlay{
+    width:100%;
+    min-height:90vh;
+    background:linear-gradient(
+        rgba(0,18,45,.78),
+        rgba(0,30,65,.62)
+    );
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.hero-content{
+    text-align:center;
+    color:white;
+    max-width:1000px;
+    animation:heroFade 1s ease;
+}
+
+.hero-content h4{
+    letter-spacing:5px;
+    font-size:18px;
+    color:#FFD700;
+    margin-bottom:15px;
+    text-transform:uppercase;
+}
+
+.hero-content h1{
+    font-size:clamp(42px,6vw,70px);
+    line-height:1.1;
+    margin:15px 0;
+    font-weight:800;
+    text-shadow:0 5px 20px rgba(0,0,0,.6);
+}
+
+.hero-content span{
+    color:#FFD700;
+}
+
+.hero-content p{
+    width:80%;
+    max-width:800px;
+    margin:20px auto;
+    font-size:21px;
+    line-height:1.7;
+    color:#f5f5f5;
+    text-shadow:0 3px 10px rgba(0,0,0,.7);
+}
+
+.hero-buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    background:#FFD700;
+    color:#002b5b;
+    padding:15px 32px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+.btn:hover{
+    background:white;
+    transform:translateY(-3px);
+}
+
+.btn2{
+    display:inline-block;
+    background:transparent;
+    color:white;
+    border:2px solid white;
+    padding:13px 30px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn2:hover{
+    background:white;
+    color:#002b5b;
+    transform:translateY(-3px);
+}
+
+/* =====================================================
+   CATEGORIES
+   ===================================================== */
+
+.categories{
+    padding:90px 8%;
+    background:#f5f8fc;
+    text-align:center;
+}
+
+.categories h2{
+    font-size:40px;
+    color:#001F54;
+    margin-bottom:55px;
+    position:relative;
+}
+
+.categories h2::after{
+    content:"";
+    display:block;
+    width:70px;
+    height:4px;
+    background:#FFD700;
+    margin:15px auto 0;
+    border-radius:5px;
+}
+
+.card-container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:320px;
+    background:white;
+    padding:35px 30px;
+    border-radius:18px;
+    border:1px solid #e6ebf2;
+    box-shadow:0 12px 30px rgba(0,31,84,.10);
+    transition:.35s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:#FFD700;
+}
+
+.card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 20px 40px rgba(0,31,84,.18);
+}
+
+.card h3{
+    color:#001F54;
+    font-size:24px;
+    margin-bottom:15px;
+}
+
+.card p{
+    color:#555;
+    margin-bottom:25px;
+    line-height:1.7;
+}
+
+.card-btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#001F54;
+    color:white;
+    padding:12px 25px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.card-btn:hover{
+    background:#FFD700;
+    color:#001F54;
+    transform:translateY(-2px);
+}
+
+/* =====================================================
+   LATEST JOBS
+   ===================================================== */
+
+.latest-jobs{
+    padding:90px 8%;
+    background:white;
+}
+
+.latest-jobs h2{
+    text-align:center;
+    color:#002b5b;
+    margin-bottom:50px;
+    font-size:40px;
+    position:relative;
+}
+
+.latest-jobs h2::after{
+    content:"";
+    display:block;
+    width:70px;
+    height:4px;
+    background:#FFD700;
+    margin:15px auto 0;
+    border-radius:5px;
+}
+
+.job-container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.job-card{
+    width:320px;
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    border:1px solid #e5e9ef;
+    box-shadow:0 10px 25px rgba(0,0,0,.10);
+    text-align:center;
+    transition:.35s;
+}
+
+.job-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 18px 35px rgba(0,0,0,.16);
+}
+
+.job-card h3{
+    color:#002b5b;
+    margin-bottom:15px;
+    font-size:21px;
+}
+
+.job-card p{
+    color:#555;
+    margin-bottom:20px;
+    line-height:1.6;
+}
+
+.job-btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#002b5b;
+    color:white;
+    padding:11px 22px;
+    border-radius:7px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.job-btn:hover{
+    background:#FFD700;
+    color:#002b5b;
+}
+
+/* =====================================================
+   WHY CHOOSE US
+   ===================================================== */
+
+.why-us{
+    padding:90px 8%;
+    background:#f5f8fc;
+    text-align:center;
+}
+
+.why-us h2{
+    font-size:40px;
+    color:#002b5b;
+    margin-bottom:55px;
+    position:relative;
+}
+
+.why-us h2::after{
+    content:"";
+    display:block;
+    width:70px;
+    height:4px;
+    background:#FFD700;
+    margin:15px auto 0;
+    border-radius:5px;
+}
+
+.features{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.feature-box{
+    width:260px;
+    background:white;
+    padding:30px 25px;
+    border-radius:15px;
+    border:1px solid #e5e9ef;
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.feature-box:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 30px rgba(0,0,0,.13);
+}
+
+.feature-box h3{
+    color:#002b5b;
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+.feature-box p{
+    color:#555;
+    line-height:1.6;
+}
+
+/* =====================================================
+   ELIGIBILITY CHECKER
+   ===================================================== */
+
+.checker{
+    width:100%;
+    padding:90px 20px;
+    text-align:center;
+    background:#eef5ff;
+}
+
+.checker h1{
+    color:#002b5b;
+    margin-bottom:40px;
+    font-size:40px;
+}
+
+.checker form{
+    width:450px;
+    max-width:100%;
+    margin:auto;
+    background:white;
+    padding:40px;
+    border-radius:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+    border:1px solid #e1e7ef;
+}
+
+.checker label{
+    display:block;
+    text-align:left;
+    margin-top:20px;
+    font-weight:bold;
+    color:#002b5b;
+}
+
+.checker input,
+.checker select{
+    width:100%;
+    padding:13px;
+    margin-top:8px;
+    border:1px solid #ccd5e0;
+    border-radius:8px;
+    outline:none;
+    transition:.3s;
+}
+
+.checker input:focus,
+.checker select:focus{
+    border-color:#002b5b;
+    box-shadow:0 0 0 3px rgba(0,43,91,.10);
+}
+
+.checker button{
+    margin-top:30px;
+    width:100%;
+    padding:14px;
+    background:#002b5b;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.checker button:hover{
+    background:#FFD700;
+    color:#002b5b;
+    transform:translateY(-2px);
+}
+
+/* =====================================================
+   ANIMATION
+   ===================================================== */
+
+@keyframes heroFade{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+@media(max-width:900px){
+
+    nav{
+        padding:0 25px;
+    }
+
+    nav ul li{
+        margin-left:15px;
+    }
+
+    nav ul li a{
+        font-size:14px;
+    }
+
+    .hero-content p{
+        width:95%;
+        font-size:18px;
+    }
+
+}
+
+@media(max-width:700px){
+
+    nav{
+        min-height:70px;
+        padding:12px 20px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+    }
+
+    nav ul li{
+        margin-left:0;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .hero{
+        min-height:80vh;
+    }
+
+    .hero-overlay{
+        min-height:80vh;
+    }
+
+    .hero-content h4{
+        font-size:14px;
+        letter-spacing:3px;
+    }
+
+    .hero-content h1{
+        font-size:40px;
+    }
+
+    .hero-content p{
+        font-size:16px;
+        line-height:1.6;
+    }
+
+    .categories,
+    .latest-jobs,
+    .why-us,
+    .checker{
+        padding:60px 20px;
+    }
+
+    .categories h2,
+    .latest-jobs h2,
+    .why-us h2,
+    .checker h1{
+        font-size:30px;
+    }
+
+}

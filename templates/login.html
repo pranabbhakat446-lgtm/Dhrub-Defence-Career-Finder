@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dhrub Defence Career Finder - Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 20, 55, 0.62),
+                    rgba(0, 20, 55, 0.78)
+                ),
+                url("/static/images/bglogin.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        /* =========================
+           LOGIN CARD
+        ========================= */
+
+        .login-box {
+
+            width: 410px;
+            max-width: 100%;
+
+            padding: 42px 38px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 22px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 55px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+
+            backdrop-filter: blur(10px);
+
+            animation: loginAppear 0.8s ease;
+        }
+
+
+        /* =========================
+           ANIMATION
+        ========================= */
+
+        @keyframes loginAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+
+        /* =========================
+           LOGO / TITLE
+        ========================= */
+
+        .logo-icon {
+
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #002b5b,
+                    #0057a8
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+
+            font-size: 34px;
+
+            box-shadow:
+                0 8px 20px rgba(0, 43, 91, 0.30);
+        }
+
+
+        .login-box h1 {
+
+            color: #002b5b;
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        .login-box .subtitle {
+
+            color: #666;
+
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =========================
+           INPUT GROUP
+        ========================= */
+
+        .input-group {
+
+            text-align: left;
+
+            margin-bottom: 16px;
+        }
+
+
+        .input-group label {
+
+            display: block;
+
+            color: #002b5b;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        .login-box input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #d5dbe3;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: #f8fafc;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .login-box input:focus {
+
+            border-color: #0057a8;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 87, 168, 0.12);
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-box button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #002b5b,
+                    #0057a8
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 8px 18px rgba(0, 43, 91, 0.25);
+        }
+
+
+        .login-box button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(0, 43, 91, 0.35);
+        }
+
+
+        /* =========================
+           FORGOT PASSWORD
+        ========================= */
+
+        .forgot {
+
+            margin-top: 18px;
+        }
+
+
+        .forgot a {
+
+            text-decoration: none;
+
+            color: #0057a8;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .forgot a:hover {
+
+            color: #f5b400;
+        }
+
+
+        /* =========================
+           DIVIDER
+        ========================= */
+
+        .divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 23px 0;
+        }
+
+
+        .divider::before,
+        .divider::after {
+
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #ddd;
+        }
+
+
+        .divider span {
+
+            color: #999;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           SIGNUP
+        ========================= */
+
+        .signup-text {
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        .signup-text a {
+
+            color: #002b5b;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .signup-text a:hover {
+
+            color: #f5b400;
+        }
+
+
+        /* =========================
+           FOOTER TEXT
+        ========================= */
+
+        .security-text {
+
+            margin-top: 20px;
+
+            font-size: 12px;
+
+            color: #999;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+            .login-box {
+
+                padding: 32px 24px;
+
+            }
+
+            .login-box h1 {
+
+                font-size: 24px;
+
+            }
+
+            .logo-icon {
+
+                width: 62px;
+                height: 62px;
+
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-box">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-icon">
+        🪖
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1>
+        Dhrub Defence Career Finder
+    </h1>
+
+
+    <p class="subtitle">
+        Login to continue to your defence career journey
+    </p>
+
+
+    <!-- LOGIN FORM -->
+
+    <form action="/login" method="POST">
+
+
+        <div class="input-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
+                Password
+            </label>
+
+           <div style="position:relative;">
+
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter your password"
+        required
+        style="padding-right:90px;">
+
+    <button
+        type="button"
+        id="togglePassword"
+        onclick="togglePasswordVisibility()"
+        style="
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+            width:auto;
+            margin:0;
+            padding:6px 8px;
+            background:transparent;
+            color:#00509e;
+            border:none;
+            box-shadow:none;
+            font-size:14px;
+            font-weight:bold;
+            cursor:pointer;
+        ">
+        Show
+    </button>
+
+</div>
+        </div>
+
+
+        <button type="submit">
+            Login →
+        </button>
+
+
+    </form>
+
+
+    <!-- FORGOT PASSWORD -->
+
+    <div class="forgot">
+
+        <a href="/forgot-password">
+            Forgot Password?
+        </a>
+
+    </div>
+
+
+    <!-- DIVIDER -->
+
+    <div class="divider">
+
+        <span>OR</span>
+
+    </div>
+
+
+    <!-- SIGNUP -->
+
+    <p class="signup-text">
+
+        Don't have an account?
+
+        <a href="/signup">
+            Create Account
+        </a>
+
+    </p>
+
+
+    <!-- SECURITY -->
+
+    <p class="security-text">
+        🔒 Your account information is protected
+    </p>
+
+
+</div>
+
+
+<script>
+
+function togglePasswordVisibility() {
+
+    const password = document.getElementById("password");
+    const toggleButton = document.getElementById("togglePassword");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        toggleButton.textContent = "Hide";
+
+    } else {
+
+        password.type = "password";
+        toggleButton.textContent = "Show";
+
+    }
+
+}
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fc;
+            color: #222;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: linear-gradient(135deg, #001f4d, #0057a8);
+
+            color: white;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 16px 5%;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,.20);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        nav ul li a:hover {
+            color: #FFD700;
+        }
+
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .dashboard-header {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 35px auto 20px;
+
+            text-align: center;
+        }
+
+        .dashboard-header h1 {
+            color: #002b5b;
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header p {
+            color: #777;
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           STATISTICS
+        ========================= */
+
+        .stats-container {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 25px auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .stat-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,.10);
+
+            border-top: 4px solid #0057a8;
+
+            transition: .3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 12px 25px rgba(0,0,0,.15);
+        }
+
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h2 {
+
+            color: #002b5b;
+
+            font-size: 38px;
+
+            margin: 0 0 5px;
+        }
+
+        .stat-card p {
+
+            color: #777;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 30px auto 50px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 25px rgba(0,0,0,.10);
+        }
+
+
+        .section-title {
+
+            color: #002b5b;
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           SEARCH BOX
+        ========================= */
+
+        .search-form {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 30px;
+        }
+
+        .search-form input {
+
+            flex: 1;
+
+            padding: 13px 15px;
+
+            border: 1px solid #d5dbe3;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            background: #f8fafc;
+        }
+
+        .search-form input:focus {
+
+            border-color: #0057a8;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px rgba(0,87,168,.10);
+        }
+
+        .search-form button {
+
+            width: 130px;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #002b5b;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .search-form button:hover {
+
+            background: #0057a8;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           ADD VACANCY FORM
+        ========================= */
+
+        .vacancy-form {
+
+            background: #f6f9fd;
+
+            padding: 22px;
+
+            border-radius: 14px;
+
+            border: 1px solid #e0e7ef;
+
+            margin-bottom: 35px;
+        }
+
+        .vacancy-form input {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            margin-bottom: 12px;
+
+            border: 1px solid #d5dbe3;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            background: white;
+        }
+
+        .vacancy-form input:focus {
+
+            border-color: #0057a8;
+
+            box-shadow:
+                0 0 0 3px rgba(0,87,168,.10);
+        }
+
+        .add-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #002b5b,
+                    #0057a8
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .add-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 18px rgba(0,43,91,.25);
+        }
+
+
+        /* =========================
+           TABLE SECTION
+        ========================= */
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            margin-top: 18px;
+
+            border-radius: 10px;
+        }
+
+        table {
+
+            width: 100%;
+
+            min-width: 700px;
+
+            border-collapse: collapse;
+        }
+
+        table th {
+
+            background: #002b5b;
+
+            color: white;
+
+            padding: 14px 10px;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+        table td {
+
+            padding: 13px 10px;
+
+            border-bottom: 1px solid #e5e9ef;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            color: #444;
+        }
+
+        table tr:nth-child(even) {
+
+            background: #f8fafc;
+        }
+
+        table tr:hover {
+
+            background: #eef5fc;
+        }
+
+
+        /* =========================
+           ACTION BUTTONS
+        ========================= */
+
+        .edit-btn {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 6px;
+
+            background: #e8f7ed;
+
+            color: #16833a;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            font-size: 12px;
+
+            transition: .3s;
+        }
+
+        .edit-btn:hover {
+
+            background: #16833a;
+
+            color: white;
+        }
+
+
+        .delete-btn {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 6px;
+
+            background: #fdeaea;
+
+            color: #d62828;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            font-size: 12px;
+
+            transition: .3s;
+        }
+
+        .delete-btn:hover {
+
+            background: #d62828;
+
+            color: white;
+        }
+
+
+        /* =========================
+           SECTION DIVIDER
+        ========================= */
+
+        .section-divider {
+
+            border: none;
+
+            border-top: 1px solid #e1e6ec;
+
+            margin: 40px 0;
+        }
+
+
+        /* =========================
+           EMPTY MESSAGE
+        ========================= */
+
+        .empty-message {
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #888;
+
+            background: #f8fafc;
+
+            border-radius: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            nav .logo {
+                font-size: 17px;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 12px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 88%;
+                padding: 22px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 27px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-form button {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+    <div class="logo">
+        🛡️ Dhrub Defence Career Finder
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/home">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="/notifications">
+                Notifications
+            </a>
+        </li>
+
+        <li>
+            <a href="/admin-logout">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="dashboard-header">
+
+    <h1>
+        Admin Dashboard
+    </h1>
+
+    <p>
+        Manage Defence Job Vacancies, Users & Contact Messages
+    </p>
+
+</div>
+
+
+<!-- =========================
+     STATISTICS
+========================= -->
+
+<div class="stats-container">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <h2>
+            {{ total_users or 0 }}
+        </h2>
+
+        <p>
+            Total Users
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📢
+        </div>
+
+        <h2>
+            {{ total_jobs or 0 }}
+        </h2>
+
+        <p>
+            Total Vacancies
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🟢
+        </div>
+
+        <h2>
+            Active
+        </h2>
+
+        <p>
+            Admin Status
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
+
+<div class="container">
+
+
+    <!-- =========================
+         SEARCH
+    ========================= -->
+
+    <h2 class="section-title">
+        🔎 Search Vacancies
+    </h2>
+
+    <p class="section-subtitle">
+        Search for a vacancy by title or keyword.
+    </p>
+
+
+    <form
+        action="/admin-dashboard"
+        method="GET"
+        class="search-form"
+    >
+
+        <input
+            type="text"
+            name="search"
+            value="{{ request.args.get('search','') }}"
+            placeholder="Search Vacancy..."
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+
+    <!-- =========================
+         ADD VACANCY
+    ========================= -->
+
+    <h2 class="section-title">
+        ➕ Add New Defence Vacancy
+    </h2>
+
+    <p class="section-subtitle">
+        Add a new recruitment notification to the website.
+    </p>
+
+
+    <div class="vacancy-form">
+
+        <form
+            action="/add-vacancy"
+            method="POST"
+        >
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Vacancy Title"
+                required
+            >
+
+            <input
+                type="text"
+                name="organization"
+                placeholder="Organization"
+                required
+            >
+
+            <input
+                type="date"
+                name="start_date"
+                required
+            >
+
+            <input
+                type="date"
+                name="last_date"
+                required
+            >
+
+            <input
+                type="url"
+                name="apply_link"
+                placeholder="Official Apply Link"
+                required
+            >
+
+            <button
+                type="submit"
+                class="add-btn"
+            >
+                ➕ Add Vacancy
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         VACANCIES
+    ========================= -->
+
+    <h2 class="section-title">
+        📋 Added Defence Vacancies
+    </h2>
+
+    <p class="section-subtitle">
+        Manage all recruitment notifications from here.
+    </p>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Vacancy</th>
+
+                <th>Organization</th>
+
+                <th>Start Date</th>
+
+                <th>Last Date</th>
+
+                <th>Action</th>
+
+            </tr>
+
+
+            {% for job in jobs %}
+
+            <tr>
+
+                <td>
+                    {{ job.id }}
+                </td>
+
+                <td>
+                    {{ job.title }}
+                </td>
+
+                <td>
+                    {{ job.organization }}
+                </td>
+
+                <td>
+                    {{ job.start_date }}
+                </td>
+
+                <td>
+                    {{ job.last_date }}
+                </td>
+
+                <td>
+
+                    <a
+                        class="edit-btn"
+                        href="/edit-vacancy/{{ job.id }}"
+                    >
+                        ✏️ Edit
+                    </a>
+
+
+                    <a
+                        class="delete-btn"
+                        href="/delete-vacancy/{{ job.id }}"
+                        onclick="return confirm('Delete this vacancy?')"
+                    >
+                        🗑️ Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+   <!-- =========================
+     CONTACT MESSAGES
+========================= -->
+
+<hr class="section-divider">
+
+<h2 class="section-title">
+    💬 Contact Messages
+</h2>
+
+<p class="section-subtitle">
+    Messages received from website visitors.
+</p>
+
+<div class="table-wrapper">
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>👤 Name</th>
+            <th>📧 Email</th>
+            <th>📌 Subject</th>
+            <th>💬 Message</th>
+        </tr>
+
+        {% for contact in contacts %}
+
+        <tr>
+
+            <td>
+                {{ contact.id }}
+            </td>
+
+            <td>
+                <strong>{{ contact.name }}</strong>
+            </td>
+
+            <td>
+                {{ contact.email }}
+            </td>
+
+            <td>
+                <strong>{{ contact.subject }}</strong>
+            </td>
+
+            <td style="
+                text-align:left;
+                max-width:350px;
+                line-height:1.5;
+            ">
+                {{ contact.message }}
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5"
+                style="
+                    text-align:center;
+                    padding:25px;
+                    color:#888;
+                ">
+
+                📭 No contact messages received yet.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+    <!-- =========================
+         REGISTERED USERS
+    ========================= -->
+
+    <hr class="section-divider">
+
+
+    <h2 class="section-title">
+        👥 Registered Users
+    </h2>
+
+    <p class="section-subtitle">
+        Users who have created an account on the platform.
+    </p>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Username</th>
+
+                <th>Email</th>
+
+            </tr>
+
+
+            {% for user in users %}
+
+            <tr>
+
+                <td>
+                    {{ user.id }}
+                </td>
+
+                <td>
+                    {{ user.username }}
+                </td>
+
+                <td>
+                    {{ user.email }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

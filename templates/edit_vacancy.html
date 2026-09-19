@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Vacancy | Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:linear-gradient(135deg,#eef3f9,#ffffff);
+        }
+
+        /* NAVBAR */
+
+        nav{
+            background:linear-gradient(135deg,#001f4d,#004080);
+            color:white;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:16px 6%;
+            box-shadow:0 4px 15px rgba(0,0,0,.18);
+        }
+
+        .logo{
+            font-size:24px;
+            font-weight:bold;
+            letter-spacing:.5px;
+        }
+
+        nav ul{
+            display:flex;
+            list-style:none;
+            margin:0;
+            padding:0;
+        }
+
+        nav ul li{
+            margin-left:25px;
+        }
+
+        nav ul li a{
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        nav ul li a:hover{
+            color:#ffd700;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container{
+            width:90%;
+            max-width:720px;
+            margin:55px auto;
+            background:white;
+            padding:40px;
+            border-radius:18px;
+            box-shadow:0 10px 35px rgba(0,0,0,.12);
+            box-sizing:border-box;
+        }
+
+        .icon{
+            width:70px;
+            height:70px;
+            margin:0 auto 15px;
+            background:linear-gradient(135deg,#002b5b,#00509e);
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:34px;
+            box-shadow:0 5px 15px rgba(0,43,91,.25);
+        }
+
+        h1{
+            color:#002b5b;
+            text-align:center;
+            margin-bottom:8px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#777;
+            margin-bottom:30px;
+        }
+
+        /* FORM */
+
+        .form-group{
+            margin-bottom:18px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:7px;
+            font-weight:bold;
+            color:#002b5b;
+        }
+
+        input{
+            width:100%;
+            padding:13px 14px;
+            border:1px solid #d4dce8;
+            border-radius:8px;
+            font-size:16px;
+            box-sizing:border-box;
+            outline:none;
+            transition:.3s;
+        }
+
+        input:focus{
+            border-color:#00509e;
+            box-shadow:0 0 0 3px rgba(0,80,158,.10);
+        }
+
+        /* BUTTON */
+
+        button{
+            width:100%;
+            padding:14px;
+            margin-top:10px;
+            background:linear-gradient(135deg,#002b5b,#00509e);
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:17px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            transform:translateY(-2px);
+            box-shadow:0 7px 18px rgba(0,43,91,.25);
+        }
+
+        /* BACK BUTTON */
+
+        .back{
+            display:block;
+            text-align:center;
+            margin-top:22px;
+            padding:12px;
+            text-decoration:none;
+            color:#002b5b;
+            font-weight:bold;
+            border:1px solid #d7e0ec;
+            border-radius:8px;
+            transition:.3s;
+        }
+
+        .back:hover{
+            background:#f0f5fb;
+            color:#00509e;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:700px){
+
+            nav{
+                padding:15px 20px;
+                flex-direction:column;
+                gap:12px;
+            }
+
+            .logo{
+                font-size:20px;
+                text-align:center;
+            }
+
+            nav ul li{
+                margin:0 10px;
+            }
+
+            .container{
+                margin:30px auto;
+                padding:25px 20px;
+            }
+
+            h1{
+                font-size:26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🛡️ Dhrub Defence Career Finder
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/admin-dashboard">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="/admin-logout">Logout</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="icon">
+        ✏️
+    </div>
+
+    <h1>Edit Defence Vacancy</h1>
+
+    <p class="subtitle">
+        Update the vacancy details carefully
+    </p>
+
+
+    <form action="/update-vacancy/{{ job.id }}" method="POST">
+
+        <div class="form-group">
+
+            <label>Vacancy Title</label>
+
+            <input
+                type="text"
+                name="title"
+                value="{{ job.title }}"
+                placeholder="Enter vacancy title"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Organization</label>
+
+            <input
+                type="text"
+                name="organization"
+                value="{{ job.organization }}"
+                placeholder="Example: Army, Navy, Air Force"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Starting Date</label>
+
+            <input
+                type="date"
+                name="start_date"
+                value="{{ job.start_date }}"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Last Date</label>
+
+            <input
+                type="date"
+                name="last_date"
+                value="{{ job.last_date }}"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Apply Link</label>
+
+            <input
+                type="url"
+                name="apply_link"
+                value="{{ job.apply_link }}"
+                placeholder="https://example.com"
+                required>
+
+        </div>
+
+
+        <button type="submit">
+            ✅ Update Vacancy
+        </button>
+
+    </form>
+
+
+    <a class="back" href="/admin-dashboard">
+        ⬅ Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        🛡️ Dhrub <span>Defence Career Finder</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/home">Home</a>
+        </li>
+
+        <li>
+            <a href="/eligibility">Eligibility</a>
+        </li>
+
+        <li>
+            <a href="/notifications">Notifications</a>
+        </li>
+
+        <li>
+            <a href="/about">About Us</a>
+        </li>
+
+        <li>
+            <a href="/contact">Contact</a>
+        </li>
+
+        <li>
+            <a href="/">Logout</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-overlay">
+
+        <div class="hero-content">
+
+            <h4>🇮🇳 WELCOME TO YOUR DEFENCE CAREER</h4>
+
+            <h1>
+                Dhrub <span>Defence Career Finder</span>
+            </h1>
+
+            <p>
+                Your One Stop Platform for Army, Navy, Air Force,
+                CAPF and Other Government Defence Recruitment.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/notifications" class="btn">
+                    🔎 Latest Jobs
+                </a>
+
+                <a href="/eligibility" class="btn2">
+                    🎯 Check Eligibility
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DEFENCE CATEGORIES
+===================================================== -->
+
+<section class="categories">
+
+    <h2>Choose Your Defence Career</h2>
+
+    <div class="card-container">
+
+
+        <!-- ARMY -->
+
+        <div class="card">
+
+            <h3>🪖 Indian Army</h3>
+
+            <p>
+                Latest Army Recruitment, Rally,
+                Agniveer & Officer Entries.
+            </p>
+
+            <a href="/notifications?organization=Army"
+               class="card-btn">
+                View Army Jobs →
+            </a>
+
+        </div>
+
+
+        <!-- NAVY -->
+
+        <div class="card">
+
+            <h3>⚓ Indian Navy</h3>
+
+            <p>
+                SSR, MR, AA, Sailor &
+                Officer Recruitment Updates.
+            </p>
+
+            <a href="/notifications?organization=Navy"
+               class="card-btn">
+                View Navy Jobs →
+            </a>
+
+        </div>
+
+
+        <!-- AIR FORCE -->
+
+        <div class="card">
+
+            <h3>✈️ Indian Air Force</h3>
+
+            <p>
+                Agniveer Vayu, AFCAT,
+                Group X/Y & Officer Entries.
+            </p>
+
+            <a href="/notifications?organization=Air Force"
+               class="card-btn">
+                View Air Force Jobs →
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LATEST JOBS
+===================================================== -->
+
+<section class="latest-jobs">
+
+    <h2>Latest Defence Notifications</h2>
+
+    <div class="job-container">
+
+
+        <div class="job-card">
+
+            <h3>
+                🪖 Indian Army Recruitment
+            </h3>
+
+            <p>
+                Latest Army recruitment and
+                Agniveer opportunities.
+            </p>
+
+            <a href="/notifications"
+               class="job-btn">
+                View Details →
+            </a>
+
+        </div>
+
+
+
+        <div class="job-card">
+
+            <h3>
+                ⚓ Indian Navy Recruitment
+            </h3>
+
+            <p>
+                Latest Navy SSR, MR and
+                other recruitment updates.
+            </p>
+
+            <a href="/notifications"
+               class="job-btn">
+                View Details →
+            </a>
+
+        </div>
+
+
+
+        <div class="job-card">
+
+            <h3>
+                ✈️ Air Force Recruitment
+            </h3>
+
+            <p>
+                Latest Air Force Agniveer Vayu
+                and officer opportunities.
+            </p>
+
+            <a href="/notifications"
+               class="job-btn">
+                View Details →
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WHY CHOOSE US
+===================================================== -->
+
+<section class="why-us">
+
+    <h2>
+        Why Choose Dhrub Defence Career Finder?
+    </h2>
+
+    <div class="features">
+
+
+        <div class="feature-box">
+
+            <h3>
+                📢 Latest Defence Updates
+            </h3>
+
+            <p>
+                Get the latest Defence job
+                notifications and recruitment updates.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-box">
+
+            <h3>
+                🎯 Eligibility Checker
+            </h3>
+
+            <p>
+                Check your eligibility based on
+                Age, Qualification and Gender.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-box">
+
+            <h3>
+                ⚡ Fast & Easy
+            </h3>
+
+            <p>
+                Simple and user-friendly platform
+                designed for Defence aspirants.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-box">
+
+            <h3>
+                🔒 Trusted Information
+            </h3>
+
+            <p>
+                Find recruitment information
+                in one convenient platform.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer style="
+    background:#00152f;
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+">
+
+    <h3 style="
+        color:#FFD700;
+        margin-bottom:10px;
+    ">
+        🛡️ Dhrub Defence Career Finder
+    </h3>
+
+    <p style="
+        color:#d8e0ea;
+        margin-bottom:8px;
+    ">
+        Your One Stop Platform for Defence Recruitment Updates
+    </p>
+
+    <p style="
+        color:#9eacbd;
+        font-size:14px;
+    ">
+        © 2026 Dhrub Defence Career Finder. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up - Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 20, 55, 0.62),
+                    rgba(0, 20, 55, 0.78)
+                ),
+                url("/static/images/bglogin.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        /* =========================
+           SIGNUP CARD
+        ========================= */
+
+        .signup-box {
+
+            width: 420px;
+            max-width: 100%;
+
+            padding: 40px 38px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 22px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 55px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+
+            backdrop-filter: blur(10px);
+
+            animation: signupAppear 0.8s ease;
+        }
+
+
+        /* =========================
+           ANIMATION
+        ========================= */
+
+        @keyframes signupAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo-icon {
+
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #002b5b,
+                    #0057a8
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+
+            font-size: 32px;
+
+            box-shadow:
+                0 8px 20px rgba(0, 43, 91, 0.30);
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        .signup-box h1 {
+
+            color: #002b5b;
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            color: #666;
+
+            font-size: 15px;
+
+            margin-bottom: 27px;
+        }
+
+
+        /* =========================
+           INPUT GROUP
+        ========================= */
+
+        .input-group {
+
+            text-align: left;
+
+            margin-bottom: 15px;
+        }
+
+
+        .input-group label {
+
+            display: block;
+
+            color: #002b5b;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        .signup-box input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #d5dbe3;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: #f8fafc;
+
+            transition: all 0.3s ease;
+        }
+
+
+        /* INPUT FOCUS */
+
+        .signup-box input:focus {
+
+            border-color: #0057a8;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 87, 168, 0.12);
+        }
+
+
+        /* =========================
+           SIGNUP BUTTON
+        ========================= */
+
+        .signup-box button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #002b5b,
+                    #0057a8
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 8px 18px rgba(0, 43, 91, 0.25);
+        }
+
+
+        .signup-box button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(0, 43, 91, 0.35);
+        }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .login-link {
+
+            margin-top: 22px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        .login-link a {
+
+            text-decoration: none;
+
+            color: #002b5b;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .login-link a:hover {
+
+            color: #f5b400;
+        }
+
+
+        /* =========================
+           SECURITY TEXT
+        ========================= */
+
+        .security-text {
+
+            margin-top: 18px;
+
+            color: #999;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .signup-box {
+
+                padding: 32px 24px;
+            }
+
+            .signup-box h1 {
+
+                font-size: 25px;
+            }
+
+            .logo-icon {
+
+                width: 62px;
+                height: 62px;
+
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="signup-box">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-icon">
+        🪖
+    </div>
+
+
+    <!-- HEADING -->
+
+    <h1>
+        Create Account
+    </h1>
+
+
+    <p class="subtitle">
+        Join Dhrub Defence Career Finder
+    </p>
+
+
+    <!-- SIGNUP FORM -->
+
+    <form action="/signup" method="POST">
+
+
+        <div class="input-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>
+                Password
+            </label>
+
+          <div style="position:relative;">
+
+    <input
+        type="password"
+        id="signupPassword"
+        name="password"
+        placeholder="Create your password"
+        required
+        style="padding-right:75px;">
+
+    <button
+        type="button"
+        id="signupTogglePassword"
+        onclick="toggleSignupPassword()"
+        style="
+            position:absolute;
+            right:8px;
+            top:50%;
+            transform:translateY(-50%);
+            width:auto;
+            margin:0;
+            padding:6px 8px;
+            background:transparent;
+            color:#0057a8;
+            border:none;
+            box-shadow:none;
+            font-size:13px;
+            font-weight:bold;
+            cursor:pointer;
+        ">
+        Show
+    </button>
+
+</div>
+        </div>
+
+
+        <button type="submit">
+            Create Account →
+        </button>
+
+
+    </form>
+
+
+    <!-- LOGIN -->
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="/">
+            Login
+        </a>
+
+    </div>
+
+
+    <!-- SECURITY -->
+
+    <p class="security-text">
+        🔒 Your account information is protected
+    </p>
+
+
+</div>
+
+<script>
+
+function toggleSignupPassword() {
+
+    const password = document.getElementById("signupPassword");
+    const button = document.getElementById("signupTogglePassword");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        button.textContent = "Hide";
+
+    } else {
+
+        password.type = "password";
+        button.textContent = "Show";
+
+    }
+
+}
+
+</script>
+</body>
+
+</html>

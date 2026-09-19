@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | Dhrub Defence Career Finder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* =========================================
+           ABOUT PAGE
+        ========================================= */
+
+        .about-page{
+            min-height:calc(100vh - 80px);
+            background:linear-gradient(135deg,#f4f7fb,#eaf1f8);
+            padding:65px 20px 80px;
+        }
+
+        .about-wrapper{
+            max-width:1100px;
+            margin:auto;
+        }
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .about-header{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .about-icon{
+            width:75px;
+            height:75px;
+            margin:0 auto 18px;
+            border-radius:50%;
+            background:#001F54;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:34px;
+            box-shadow:0 10px 25px rgba(0,31,84,.18);
+        }
+
+        .about-header h1{
+            color:#001F54;
+            font-size:40px;
+            margin-bottom:10px;
+        }
+
+        .gold-line{
+            width:70px;
+            height:4px;
+            background:#FFD700;
+            border-radius:10px;
+            margin:17px auto;
+        }
+
+        .about-header p{
+            color:#667085;
+            font-size:17px;
+            line-height:1.6;
+        }
+
+        /* =========================================
+           MAIN ABOUT CARD
+        ========================================= */
+
+        .about-main{
+            background:white;
+            border-radius:22px;
+            padding:42px;
+            box-shadow:0 18px 45px rgba(0,31,84,.10);
+            border:1px solid #e2e9f1;
+            margin-bottom:35px;
+        }
+
+        .about-main h2{
+            color:#001F54;
+            font-size:27px;
+            margin-bottom:18px;
+        }
+
+        .about-main p{
+            color:#555;
+            font-size:16px;
+            line-height:1.8;
+            margin-bottom:18px;
+        }
+
+        .highlight{
+            color:#001F54;
+            font-weight:700;
+        }
+
+        /* =========================================
+           MISSION BOX
+        ========================================= */
+
+        .mission-box{
+            margin-top:25px;
+            padding:22px 25px;
+            background:#f4f8fc;
+            border-left:5px solid #FFD700;
+            border-radius:10px;
+        }
+
+        .mission-box h3{
+            color:#001F54;
+            margin-bottom:8px;
+            font-size:20px;
+        }
+
+        .mission-box p{
+            margin:0;
+            font-size:15px;
+        }
+
+        /* =========================================
+           FEATURES
+        ========================================= */
+
+        .features-heading{
+            text-align:center;
+            margin:45px 0 25px;
+        }
+
+        .features-heading h2{
+            color:#001F54;
+            font-size:30px;
+            margin-bottom:8px;
+        }
+
+        .features-heading p{
+            color:#667085;
+            font-size:15px;
+        }
+
+        .about-features{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:20px;
+        }
+
+        .about-feature{
+            background:#001F54;
+            color:white;
+            padding:30px 20px;
+            border-radius:17px;
+            text-align:center;
+            transition:.35s;
+            box-shadow:0 10px 25px rgba(0,31,84,.10);
+            position:relative;
+            overflow:hidden;
+        }
+
+        .about-feature::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:4px;
+            background:#FFD700;
+        }
+
+        .about-feature:hover{
+            transform:translateY(-8px);
+            box-shadow:0 18px 35px rgba(0,31,84,.18);
+        }
+
+        .feature-icon{
+            width:58px;
+            height:58px;
+            margin:0 auto 17px;
+            border-radius:50%;
+            background:rgba(255,255,255,.1);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:27px;
+        }
+
+        .about-feature h3{
+            color:#FFD700;
+            font-size:18px;
+            margin-bottom:10px;
+        }
+
+        .about-feature p{
+            color:#dbe5ef;
+            font-size:14px;
+            line-height:1.6;
+            margin:0;
+        }
+
+        /* =========================================
+           PLATFORM SECTION
+        ========================================= */
+
+        .platform-box{
+            margin-top:35px;
+            background:white;
+            border-radius:20px;
+            padding:35px;
+            box-shadow:0 12px 30px rgba(0,31,84,.08);
+            border:1px solid #e2e9f1;
+        }
+
+        .platform-box h2{
+            text-align:center;
+            color:#001F54;
+            font-size:27px;
+            margin-bottom:25px;
+        }
+
+        .platform-list{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:15px;
+            list-style:none;
+            padding:0;
+            margin:0;
+        }
+
+        .platform-list li{
+            background:#f6f9fc;
+            border:1px solid #e2e8f0;
+            border-radius:10px;
+            padding:15px 18px;
+            color:#444;
+            font-size:15px;
+        }
+
+        .platform-list li span{
+            color:#001F54;
+            font-weight:700;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media(max-width:900px){
+
+            .about-features{
+                grid-template-columns:1fr 1fr;
+            }
+
+        }
+
+        @media(max-width:650px){
+
+            .about-page{
+                padding:45px 18px 60px;
+            }
+
+            .about-header h1{
+                font-size:31px;
+            }
+
+            .about-header p{
+                font-size:15px;
+            }
+
+            .about-main{
+                padding:28px 22px;
+            }
+
+            .about-main h2{
+                font-size:23px;
+            }
+
+            .about-main p{
+                font-size:15px;
+            }
+
+            .about-features{
+                grid-template-columns:1fr;
+            }
+
+            .platform-box{
+                padding:25px 20px;
+            }
+
+            .platform-list{
+                grid-template-columns:1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<nav>
+
+    <div class="logo">
+        🛡️ Dhrub <span>Defence Career Finder</span>
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/home">Home</a>
+        </li>
+
+        <li>
+            <a href="/eligibility">Eligibility</a>
+        </li>
+
+        <li>
+            <a href="/notifications">Notifications</a>
+        </li>
+
+        <li>
+            <a href="/about">About Us</a>
+        </li>
+
+        <li>
+            <a href="/contact">Contact</a>
+        </li>
+
+        <li>
+            <a href="/logout">Logout</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================================
+     ABOUT PAGE
+========================================= -->
+
+<section class="about-page">
+
+    <div class="about-wrapper">
+
+
+        <!-- HEADER -->
+
+        <div class="about-header">
+
+            <div class="about-icon">
+                🛡️
+            </div>
+
+            <h1>
+                About Dhrub Defence Career Finder
+            </h1>
+
+            <div class="gold-line"></div>
+
+            <p>
+                Your one-stop platform for Defence career
+                opportunities and recruitment information.
+            </p>
+
+        </div>
+
+
+        <!-- MAIN ABOUT -->
+
+        <div class="about-main">
+
+            <h2>
+                🎖️ Who We Are
+            </h2>
+
+            <p>
+
+                <span class="highlight">
+                    Dhrub Defence Career Finder
+                </span>
+                is a web-based platform designed to help students,
+                job seekers and Defence aspirants find important
+                Defence recruitment information in one place.
+
+            </p>
+
+            <p>
+
+                The platform brings together recruitment
+                notifications, eligibility checking tools,
+                important application dates and official
+                application links to make the Defence job search
+                process easier and more organized.
+
+            </p>
+
+            <p>
+
+                Our goal is to provide a simple and user-friendly
+                platform where aspirants can quickly explore
+                opportunities related to the
+                <span class="highlight">
+                    Indian Army, Indian Navy, Indian Air Force,
+                    CAPF and other Defence organizations.
+                </span>
+
+            </p>
+
+
+            <!-- MISSION -->
+
+            <div class="mission-box">
+
+                <h3>
+                    🎯 Our Mission
+                </h3>
+
+                <p>
+                    To make Defence career information simple,
+                    accessible and easy to find for every aspiring
+                    candidate.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FEATURES HEADING -->
+
+        <div class="features-heading">
+
+            <h2>
+                What Our Platform Provides
+            </h2>
+
+            <p>
+                Useful features designed for Defence aspirants.
+            </p>
+
+        </div>
+
+
+        <!-- FEATURES -->
+
+        <div class="about-features">
+
+
+            <div class="about-feature">
+
+                <div class="feature-icon">
+                    📢
+                </div>
+
+                <h3>
+                    Latest Notifications
+                </h3>
+
+                <p>
+                    Find Defence recruitment updates and
+                    vacancy information in one place.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Eligibility Checker
+                </h3>
+
+                <p>
+                    Check available opportunities based on
+                    your age, gender and qualification.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Secure System
+                </h3>
+
+                <p>
+                    User and Admin login functionality helps
+                    organize access to the platform.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="feature-icon">
+                    💬
+                </div>
+
+                <h3>
+                    Contact Support
+                </h3>
+
+                <p>
+                    Users can send their questions,
+                    suggestions and feedback.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- PLATFORM INFORMATION -->
+
+        <div class="platform-box">
+
+            <h2>
+                🇮🇳 Defence Opportunities
+            </h2>
+
+            <ul class="platform-list">
+
+                <li>
+                    🪖 <span>Indian Army</span> — Recruitment Opportunities
+                </li>
+
+                <li>
+                    ⚓ <span>Indian Navy</span> — Recruitment Opportunities
+                </li>
+
+                <li>
+                    ✈️ <span>Indian Air Force</span> — Recruitment Opportunities
+                </li>
+
+                <li>
+                    🎖️ <span>CAPF</span> — Career Opportunities
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>
