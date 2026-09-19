@@ -1,10 +1,18 @@
-import sqlite3
+import os
+import psycopg
+
 
 # =========================
-# Connect Database
+# CONNECT TO NEON DATABASE
 # =========================
 
-conn = sqlite3.connect("defence.db")
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise Exception("DATABASE_URL environment variable is not set.")
+
+
+conn = psycopg.connect(DATABASE_URL)
 cursor = conn.cursor()
 
 
@@ -14,7 +22,7 @@ cursor = conn.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     username TEXT NOT NULL,
     email TEXT NOT NULL,
     password TEXT NOT NULL
@@ -28,30 +36,12 @@ CREATE TABLE IF NOT EXISTS users(
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS notifications(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     organization TEXT NOT NULL,
     start_date TEXT NOT NULL,
     last_date TEXT NOT NULL,
     apply_link TEXT NOT NULL
-)
-""")
-
-# ================= CONTACT TABLE =================
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS contacts(
-
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    name TEXT NOT NULL,
-
-    email TEXT NOT NULL,
-
-    subject TEXT NOT NULL,
-
-    message TEXT NOT NULL
-
 )
 """)
 
@@ -62,7 +52,7 @@ CREATE TABLE IF NOT EXISTS contacts(
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS contacts(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     subject TEXT NOT NULL,
@@ -82,7 +72,8 @@ conn.commit()
 # CLOSE DATABASE
 # =========================
 
+cursor.close()
 conn.close()
 
 
-print("Database Created Successfully!")
+print("Neon PostgreSQL Database Created Successfully!")

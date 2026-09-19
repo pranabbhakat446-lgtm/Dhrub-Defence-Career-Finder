@@ -1,18 +1,92 @@
+import os
+from dotenv import load_dotenv
+
 from flask import Flask, render_template, request, redirect, session
-import sqlite3
+import psycopg
+from psycopg.rows import dict_row
+
 
 app = Flask(__name__)
+load_dotenv()
 app.secret_key = "dhrub_defence_secret_key"
 
 
-# ========================= USER LOGIN PAGE =========================
+# =========================================================
+# DATABASE CONNECTION
+# =========================================================
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+
+def get_db():
+    if not DATABASE_URL:
+        raise Exception("DATABASE_URL environment variable is not set.")
+
+    return psycopg.connect(
+        DATABASE_URL,
+        row_factory=dict_row
+    )
+
+
+# =========================================================
+# CREATE TABLES
+# =========================================================
+
+def init_database():
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # USERS
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users(
+            id SERIAL PRIMARY KEY,
+            username TEXT NOT NULL,
+            email TEXT NOT NULL,
+            password TEXT NOT NULL
+        )
+    """)
+
+    # NOTIFICATIONS
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS notifications(
+            id SERIAL PRIMARY KEY,
+            title TEXT NOT NULL,
+            organization TEXT NOT NULL,
+            start_date TEXT NOT NULL,
+            last_date TEXT NOT NULL,
+            apply_link TEXT NOT NULL
+        )
+    """)
+
+    # CONTACTS
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS contacts(
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            subject TEXT NOT NULL,
+            message TEXT NOT NULL
+        )
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+# =========================================================
+# USER LOGIN PAGE
+# =========================================================
 
 @app.route("/")
 def login():
     return render_template("login.html")
 
 
-# ========================= USER LOGIN =========================
+# =========================================================
+# USER LOGIN
+# =========================================================
 
 @app.route("/login", methods=["POST"])
 def login_user():
@@ -20,15 +94,21 @@ def login_user():
     username = request.form["username"]
     password = request.form["password"]
 
-    conn = sqlite3.connect("defence.db")
+    conn = get_db()
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM users WHERE username=? AND password=?",
+        """
+        SELECT *
+        FROM users
+        WHERE username=%s AND password=%s
+        """,
         (username, password)
     )
 
     user = cursor.fetchone()
+
+    cursor.close()
     conn.close()
 
     if user:
@@ -38,7 +118,9 @@ def login_user():
     return "Invalid Username or Password"
 
 
-# ========================= HOME =========================
+# =========================================================
+# HOME
+# =========================================================
 
 @app.route("/home")
 def home():
@@ -49,7 +131,9 @@ def home():
     return render_template("home.html")
 
 
-# ========================= SIGNUP =========================
+# =========================================================
+# SIGNUP
+# =========================================================
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -60,15 +144,20 @@ def signup():
         email = request.form["email"]
         password = request.form["password"]
 
-        conn = sqlite3.connect("defence.db")
+        conn = get_db()
         cursor = conn.cursor()
 
         cursor.execute(
-            "INSERT INTO users(username,email,password) VALUES(?,?,?)",
+            """
+            INSERT INTO users(username, email, password)
+            VALUES(%s, %s, %s)
+            """,
             (username, email, password)
         )
 
         conn.commit()
+
+        cursor.close()
         conn.close()
 
         return redirect("/")
@@ -76,7 +165,9 @@ def signup():
     return render_template("signup.html")
 
 
-# ========================= ELIGIBILITY =========================
+# =========================================================
+# ELIGIBILITY
+# =========================================================
 
 @app.route("/eligibility")
 def eligibility():
@@ -87,7 +178,9 @@ def eligibility():
     return render_template("eligibility.html")
 
 
-# ========================= ELIGIBILITY CHECK =========================
+# =========================================================
+# ELIGIBILITY CHECK
+# =========================================================
 
 @app.route("/check", methods=["POST"])
 def check():
@@ -163,39 +256,44 @@ def check():
 
     return render_template("result.html", jobs=jobs)
 
-# ========================= NOTIFICATIONS =========================
+
+# =========================================================
+# NOTIFICATIONS
+# =========================================================
 
 @app.route("/notifications")
 def notifications():
 
     organization = request.args.get("organization")
 
-    conn = sqlite3.connect("defence.db")
-    conn.row_factory = sqlite3.Row
+    conn = get_db()
     cursor = conn.cursor()
 
     if organization:
 
-        jobs = cursor.execute(
+        cursor.execute(
             """
             SELECT *
             FROM notifications
-            WHERE organization=?
+            WHERE organization=%s
             ORDER BY id DESC
             """,
             (organization,)
-        ).fetchall()
+        )
 
     else:
 
-        jobs = cursor.execute(
+        cursor.execute(
             """
             SELECT *
             FROM notifications
             ORDER BY id DESC
             """
-        ).fetchall()
+        )
 
+    jobs = cursor.fetchall()
+
+    cursor.close()
     conn.close()
 
     return render_template(
@@ -203,66 +301,95 @@ def notifications():
         jobs=jobs,
         organization=organization
     )
-    # ---------------- Army Jobs ----------------
+
+
+# =========================================================
+# ARMY JOBS
+# =========================================================
+
 @app.route("/army-jobs")
 def army_jobs():
 
-    conn = sqlite3.connect("defence.db")
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
+    conn = get_db()
+    cursor = conn.cursor()
 
-    cur.execute("""
-        SELECT * FROM notifications
-        WHERE organization LIKE '%Army%'
+    cursor.execute("""
+        SELECT *
+        FROM notifications
+        WHERE organization ILIKE %s
         ORDER BY id DESC
-    """)
+    """, ("%Army%",))
 
-    jobs = cur.fetchall()
+    jobs = cursor.fetchall()
+
+    cursor.close()
     conn.close()
 
-    return render_template("notifications.html", jobs=jobs)
+    return render_template(
+        "notifications.html",
+        jobs=jobs
+    )
 
 
-# ---------------- Navy Jobs ----------------
+# =========================================================
+# NAVY JOBS
+# =========================================================
+
 @app.route("/navy-jobs")
 def navy_jobs():
 
-    conn = sqlite3.connect("defence.db")
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
+    conn = get_db()
+    cursor = conn.cursor()
 
-    cur.execute("""
-        SELECT * FROM notifications
-        WHERE organization LIKE '%Navy%'
+    cursor.execute("""
+        SELECT *
+        FROM notifications
+        WHERE organization ILIKE %s
         ORDER BY id DESC
-    """)
+    """, ("%Navy%",))
 
-    jobs = cur.fetchall()
+    jobs = cursor.fetchall()
+
+    cursor.close()
     conn.close()
 
-    return render_template("notifications.html", jobs=jobs)
+    return render_template(
+        "notifications.html",
+        jobs=jobs
+    )
 
 
-# ---------------- Air Force Jobs ----------------
+# =========================================================
+# AIR FORCE JOBS
+# =========================================================
+
 @app.route("/airforce-jobs")
 def airforce_jobs():
 
-    conn = sqlite3.connect("defence.db")
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
+    conn = get_db()
+    cursor = conn.cursor()
 
-    cur.execute("""
-        SELECT * FROM notifications
-        WHERE organization LIKE '%Air Force%'
+    cursor.execute("""
+        SELECT *
+        FROM notifications
+        WHERE organization ILIKE %s
         ORDER BY id DESC
-    """)
+    """, ("%Air Force%",))
 
-    jobs = cur.fetchall()
+    jobs = cursor.fetchall()
+
+    cursor.close()
     conn.close()
 
-    return render_template("notifications.html", jobs=jobs)
+    return render_template(
+        "notifications.html",
+        jobs=jobs
+    )
 
-# ========================= ABOUT US =========================
+
+# =========================================================
+# ABOUT US
+# =========================================================
 
 @app.route("/about")
 def about():
@@ -273,7 +400,9 @@ def about():
     return render_template("about.html")
 
 
-# ========================= CONTACT =========================
+# =========================================================
+# CONTACT
+# =========================================================
 
 @app.route("/contact")
 def contact():
@@ -283,7 +412,10 @@ def contact():
 
     return render_template("contact.html")
 
- #========================= SEND CONTACT MESSAGE =========================
+
+# =========================================================
+# SEND CONTACT MESSAGE
+# =========================================================
 
 @app.route("/send-message", methods=["POST"])
 def send_message():
@@ -296,25 +428,30 @@ def send_message():
     subject = request.form["subject"]
     message = request.form["message"]
 
-    conn = sqlite3.connect("defence.db")
+    conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
         INSERT INTO contacts(name, email, subject, message)
-        VALUES (?, ?, ?, ?)
-    """, (name, email, subject, message))
+        VALUES (%s, %s, %s, %s)
+        """,
+        (name, email, subject, message)
+    )
 
     conn.commit()
+
+    cursor.close()
     conn.close()
 
-    # Success message
     session["contact_success"] = "Message sent successfully! ✅"
 
     return redirect("/contact")
 
 
-
-# ========================= FORGOT PASSWORD =========================
+# =========================================================
+# FORGOT PASSWORD
+# =========================================================
 
 @app.route("/forgot-password", methods=["GET", "POST"])
 def forgot_password():
@@ -324,12 +461,15 @@ def forgot_password():
         email = request.form["email"]
         password = request.form["password"]
 
-        conn = sqlite3.connect("defence.db")
+        conn = get_db()
         cursor = conn.cursor()
 
-        # Check Email Exists
         cursor.execute(
-            "SELECT * FROM users WHERE email=?",
+            """
+            SELECT *
+            FROM users
+            WHERE email=%s
+            """,
             (email,)
         )
 
@@ -338,15 +478,22 @@ def forgot_password():
         if user:
 
             cursor.execute(
-                "UPDATE users SET password=? WHERE email=?",
+                """
+                UPDATE users
+                SET password=%s
+                WHERE email=%s
+                """,
                 (password, email)
             )
 
             conn.commit()
+
+            cursor.close()
             conn.close()
 
             return redirect("/")
 
+        cursor.close()
         conn.close()
 
         return "Email not found!"
@@ -354,7 +501,9 @@ def forgot_password():
     return render_template("forgot_password.html")
 
 
-# ========================= USER LOGOUT =========================
+# =========================================================
+# USER LOGOUT
+# =========================================================
 
 @app.route("/logout")
 def logout():
@@ -363,14 +512,19 @@ def logout():
 
     return redirect("/")
 
-# ========================= ADMIN LOGIN PAGE =========================
+
+# =========================================================
+# ADMIN LOGIN PAGE
+# =========================================================
 
 @app.route("/admin")
 def admin():
     return render_template("admin_login.html")
 
 
-# ========================= ADMIN LOGIN =========================
+# =========================================================
+# ADMIN LOGIN
+# =========================================================
 
 @app.route("/admin-login", methods=["POST"])
 def admin_login():
@@ -379,14 +533,17 @@ def admin_login():
     password = request.form["password"]
 
     if username == "admin" and password == "admin123":
+
         session["admin"] = username
+
         return redirect("/admin-dashboard")
 
     return "Invalid Admin Username or Password"
 
 
-
-# ========================= ADMIN DASHBOARD =========================
+# =========================================================
+# ADMIN DASHBOARD
+# =========================================================
 
 @app.route("/admin-dashboard")
 def admin_dashboard():
@@ -394,43 +551,52 @@ def admin_dashboard():
     if "admin" not in session:
         return redirect("/admin")
 
-    conn = sqlite3.connect("defence.db")
-    conn.row_factory = sqlite3.Row
+    conn = get_db()
     cursor = conn.cursor()
 
     # Search
     search = request.args.get("search", "").strip()
 
     if search:
-        cursor.execute("""
+
+        cursor.execute(
+            """
             SELECT *
             FROM notifications
-            WHERE LOWER(title) LIKE LOWER(?)
-               OR LOWER(organization) LIKE LOWER(?)
+            WHERE title ILIKE %s
+               OR organization ILIKE %s
             ORDER BY id DESC
-        """, (f"%{search}%", f"%{search}%"))
+            """,
+            (f"%{search}%", f"%{search}%")
+        )
+
     else:
-        cursor.execute("""
+
+        cursor.execute(
+            """
             SELECT *
             FROM notifications
             ORDER BY id DESC
-        """)
+            """
+        )
 
     jobs = cursor.fetchall()
 
-    print("Search =", search)
-    print("Total Results =", len(jobs))
-
-    for job in jobs:
-        print(job["title"], "-", job["organization"])
-
     # Total Vacancies
-    cursor.execute("SELECT COUNT(*) FROM notifications")
-    total_jobs = cursor.fetchone()[0]
+    cursor.execute("""
+        SELECT COUNT(*) AS count
+        FROM notifications
+    """)
+
+    total_jobs = cursor.fetchone()["count"]
 
     # Total Users
-    cursor.execute("SELECT COUNT(*) FROM users")
-    total_users = cursor.fetchone()[0]
+    cursor.execute("""
+        SELECT COUNT(*) AS count
+        FROM users
+    """)
+
+    total_users = cursor.fetchone()["count"]
 
     # User List
     cursor.execute("""
@@ -438,6 +604,7 @@ def admin_dashboard():
         FROM users
         ORDER BY id DESC
     """)
+
     users = cursor.fetchall()
 
     # Contact Messages
@@ -446,8 +613,10 @@ def admin_dashboard():
         FROM contacts
         ORDER BY id DESC
     """)
+
     contacts = cursor.fetchall()
 
+    cursor.close()
     conn.close()
 
     return render_template(
@@ -458,10 +627,11 @@ def admin_dashboard():
         total_jobs=total_jobs,
         total_users=total_users
     )
-    
 
-  
-# ========================= ADD VACANCY =========================
+
+# =========================================================
+# ADD VACANCY
+# =========================================================
 
 @app.route("/add-vacancy", methods=["POST"])
 def add_vacancy():
@@ -475,28 +645,35 @@ def add_vacancy():
     last_date = request.form["last_date"]
     apply_link = request.form["apply_link"]
 
-    conn = sqlite3.connect("defence.db")
+    conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
         INSERT INTO notifications
         (title, organization, start_date, last_date, apply_link)
-        VALUES (?, ?, ?, ?, ?)
-    """, (
-        title,
-        organization,
-        start_date,
-        last_date,
-        apply_link
-    ))
+        VALUES (%s, %s, %s, %s, %s)
+        """,
+        (
+            title,
+            organization,
+            start_date,
+            last_date,
+            apply_link
+        )
+    )
 
     conn.commit()
+
+    cursor.close()
     conn.close()
 
     return redirect("/admin-dashboard")
 
 
-# ========================= EDIT VACANCY =========================
+# =========================================================
+# EDIT VACANCY
+# =========================================================
 
 @app.route("/edit-vacancy/<int:id>")
 def edit_vacancy(id):
@@ -504,19 +681,32 @@ def edit_vacancy(id):
     if "admin" not in session:
         return redirect("/admin")
 
-    conn = sqlite3.connect("defence.db")
-    conn.row_factory = sqlite3.Row
-
+    conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM notifications WHERE id=?", (id,))
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM notifications
+        WHERE id=%s
+        """,
+        (id,)
+    )
+
     job = cursor.fetchone()
 
+    cursor.close()
     conn.close()
 
-    return render_template("edit_vacancy.html", job=job)
+    return render_template(
+        "edit_vacancy.html",
+        job=job
+    )
 
 
-# ========================= UPDATE VACANCY =========================
+# =========================================================
+# UPDATE VACANCY
+# =========================================================
 
 @app.route("/update-vacancy/<int:id>", methods=["POST"])
 def update_vacancy(id):
@@ -530,34 +720,41 @@ def update_vacancy(id):
     last_date = request.form["last_date"]
     apply_link = request.form["apply_link"]
 
-    conn = sqlite3.connect("defence.db")
+    conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
         UPDATE notifications
         SET
-        title=?,
-        organization=?,
-        start_date=?,
-        last_date=?,
-        apply_link=?
-        WHERE id=?
-    """, (
-        title,
-        organization,
-        start_date,
-        last_date,
-        apply_link,
-        id
-    ))
+            title=%s,
+            organization=%s,
+            start_date=%s,
+            last_date=%s,
+            apply_link=%s
+        WHERE id=%s
+        """,
+        (
+            title,
+            organization,
+            start_date,
+            last_date,
+            apply_link,
+            id
+        )
+    )
 
     conn.commit()
+
+    cursor.close()
     conn.close()
 
     return redirect("/admin-dashboard")
 
 
-# ========================= DELETE VACANCY =========================
+# =========================================================
+# DELETE VACANCY
+# =========================================================
 
 @app.route("/delete-vacancy/<int:id>")
 def delete_vacancy(id):
@@ -565,21 +762,28 @@ def delete_vacancy(id):
     if "admin" not in session:
         return redirect("/admin")
 
-    conn = sqlite3.connect("defence.db")
+    conn = get_db()
     cursor = conn.cursor()
 
     cursor.execute(
-        "DELETE FROM notifications WHERE id=?",
+        """
+        DELETE FROM notifications
+        WHERE id=%s
+        """,
         (id,)
     )
 
     conn.commit()
+
+    cursor.close()
     conn.close()
 
     return redirect("/admin-dashboard")
 
 
-# ========================= ADMIN LOGOUT =========================
+# =========================================================
+# ADMIN LOGOUT
+# =========================================================
 
 @app.route("/admin-logout")
 def admin_logout():
@@ -589,9 +793,19 @@ def admin_logout():
     return redirect("/admin")
 
 
-# ========================= RUN APP =========================
+# =========================================================
+# INITIALIZE DATABASE
+# =========================================================
+
+try:
+    init_database()
+except Exception as e:
+    print("Database initialization error:", e)
+
+
+# =========================================================
+# RUN APP
+# =========================================================
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-    

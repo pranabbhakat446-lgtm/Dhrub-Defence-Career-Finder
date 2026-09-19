@@ -1,2 +1,2 @@
 Flask
-pip
+psycopg[binary]
