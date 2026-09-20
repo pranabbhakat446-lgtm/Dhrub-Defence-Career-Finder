@@ -82,18 +82,17 @@ def init_database():
 # =========================================================
 # GOOGLE SITEMAP
 # =========================================================
-
 @app.route("/sitemap.xml")
 def sitemap():
+    pages = [
+        url_for("login", _external=True),
+        url_for("signup", _external=True),
+        url_for("home", _external=True),
+        url_for("eligibility", _external=True),
+        url_for("notifications", _external=True),
+        url_for("contact", _external=True)
+    ]
 
-   pages = [
-    url_for("login", _external=True),
-    url_for("signup", _external=True),
-    url_for("home", _external=True),
-    url_for("eligibility", _external=True),
-    url_for("notifications", _external=True),
-    url_for("contact", _external=True)
-]
     sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>'
     sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
