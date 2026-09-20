@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, Response, url_for
 import psycopg
 from psycopg.rows import dict_row
 
@@ -79,6 +79,34 @@ def init_database():
 # USER LOGIN PAGE
 # =========================================================
 
+# =========================================================
+# GOOGLE SITEMAP
+# =========================================================
+
+@app.route("/sitemap.xml")
+def sitemap():
+
+   pages = [
+    url_for("login", _external=True),
+    url_for("signup", _external=True),
+    url_for("home", _external=True),
+    url_for("eligibility", _external=True),
+    url_for("notifications", _external=True),
+    url_for("contact", _external=True)
+]
+    sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>'
+    sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+
+    for page in pages:
+        sitemap_xml += f"""
+        <url>
+            <loc>{page}</loc>
+        </url>
+        """
+
+    sitemap_xml += '</urlset>'
+
+    return Response(sitemap_xml, mimetype="application/xml")
 @app.route("/")
 def login():
     return render_template("login.html")
