@@ -107,6 +107,11 @@ def sitemap():
 
     return Response(sitemap_xml, mimetype="application/xml")
 @app.route("/")
+def welcome():
+    return render_template("welcome.html")
+
+
+@app.route("/login")
 def login():
     return render_template("login.html")
 

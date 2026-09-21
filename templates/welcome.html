@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dhrub Defence Career Finder</title>
+
+    <meta name="description"
+          content="Dhrub Defence Career Finder - Your gateway to Army, Navy, Air Force and other defence career opportunities.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,215,0,0.12), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0,170,255,0.12), transparent 30%),
+                linear-gradient(135deg, #00152e, #002b5b, #00101f);
+            color: white;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 30px;
+        }
+
+        /* Background circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .circle.one {
+            width: 420px;
+            height: 420px;
+            top: -180px;
+            left: -150px;
+        }
+
+        .circle.two {
+            width: 550px;
+            height: 550px;
+            bottom: -300px;
+            right: -180px;
+            animation-delay: 2s;
+        }
+
+        .circle.three {
+            width: 180px;
+            height: 180px;
+            top: 15%;
+            right: 12%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1050px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 22px;
+            border: 1px solid rgba(255,215,0,0.6);
+            border-radius: 50px;
+            color: #FFD700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            background: rgba(255,215,0,0.06);
+        }
+
+        .logo {
+            font-size: 68px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 25px rgba(255,215,0,0.18);
+        }
+
+        .logo span {
+            color: #FFD700;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #dce8f5;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .tagline {
+            max-width: 720px;
+            margin: 0 auto 38px;
+            color: #b9c9d9;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .services {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 42px;
+        }
+
+        .service {
+            padding: 12px 20px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #f2f6fa;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .service:hover {
+            transform: translateY(-4px);
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        .start-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 220px;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #FFD700, #ffb700);
+            color: #00152e;
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.22);
+            transition: 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(255,215,0,0.35);
+        }
+
+        .arrow {
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .start-btn:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        .bottom-text {
+            margin-top: 35px;
+            color: #8295a8;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 20px;
+            }
+
+            .logo {
+                font-size: 42px;
+                letter-spacing: 2px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .tagline {
+                font-size: 14px;
+            }
+
+            .services {
+                gap: 8px;
+                margin-bottom: 30px;
+            }
+
+            .service {
+                padding: 9px 13px;
+                font-size: 12px;
+            }
+
+            .start-btn {
+                min-width: 200px;
+                padding: 14px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <div class="circle one"></div>
+        <div class="circle two"></div>
+        <div class="circle three"></div>
+
+        <div class="content">
+
+            <div class="badge">
+                🇮🇳 DEFENCE CAREER PORTAL
+            </div>
+
+            <div class="logo">
+                D<span>H</span>RUB
+            </div>
+
+            <div class="subtitle">
+                Defence Career Finder
+            </div>
+
+            <div class="tagline">
+                Your gateway to Army, Navy, Air Force, CAPF and
+                other defence career opportunities.
+                Discover opportunities. Check eligibility.
+                Build your future.
+            </div>
+
+            <div class="services">
+
+                <div class="service">⚔️ Army</div>
+
+                <div class="service">⚓ Navy</div>
+
+                <div class="service">✈️ Air Force</div>
+
+                <div class="service">🛡️ CAPF</div>
+
+                <div class="service">📋 Eligibility</div>
+
+            </div>
+
+            <a href="{{ url_for('login') }}" class="start-btn">
+                GET STARTED
+                <span class="arrow">→</span>
+            </a>
+
+            <div class="bottom-text">
+                BUILD YOUR FUTURE • SERVE THE NATION 🇮🇳
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
