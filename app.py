@@ -220,149 +220,161 @@ def check():
     if "user" not in session:
         return redirect("/")
 
-    gender = request.form["gender"]
-    age = int(request.form["age"])
-    qualification = request.form["qualification"]
+    # -----------------------------------------
+    # USER INPUT
+    # -----------------------------------------
+
+    gender = request.form.get("gender")
+    age = int(request.form.get("age"))
+    height = float(request.form.get("height"))
+    qualification = request.form.get("qualification")
 
     jobs = []
 
-    # 10th / 12th
-    if gender == "Male" and qualification in ["10th", "12th"] and 17 <= age <= 21:
+    # -----------------------------------------
+    # INDIAN ARMY AGNIVEER
+    # -----------------------------------------
+
+    if (
+        gender == "Male"
+        and qualification in ["10th", "12th"]
+        and 17 <= age <= 21
+        and height >= 157
+    ):
         jobs.append("Indian Army Agniveer")
 
-    # Navy MR
-    if gender == "Male" and qualification == "10th" and 17 <= age <= 21:
+    # -----------------------------------------
+    # INDIAN NAVY MR
+    # -----------------------------------------
+
+    if (
+        gender == "Male"
+        and qualification == "10th"
+        and 17 <= age <= 21
+        and height >= 157
+    ):
         jobs.append("Indian Navy MR")
 
-    # Navy SSR
-    if gender == "Male" and qualification == "12th" and 17 <= age <= 21:
+    # -----------------------------------------
+    # INDIAN NAVY SSR
+    # -----------------------------------------
+
+    if (
+        gender == "Male"
+        and qualification == "12th"
+        and 17 <= age <= 21
+        and height >= 157
+    ):
         jobs.append("Indian Navy SSR")
 
-    # Air Force Agniveer
-    if qualification == "12th" and 17 <= age <= 21:
+    # -----------------------------------------
+    # INDIAN AIR FORCE AGNIVEER
+    # -----------------------------------------
+
+    if (
+        qualification == "12th"
+        and 17 <= age <= 21
+        and height >= 152.5
+    ):
         jobs.append("Indian Air Force Agniveer")
 
-    # Graduate
-    if qualification == "Graduate" and 20 <= age <= 25:
+    # -----------------------------------------
+    # CAPF ASSISTANT COMMANDANT
+    # -----------------------------------------
+
+    if (
+        qualification == "Graduate"
+        and 20 <= age <= 25
+        and (
+            (gender == "Male" and height >= 165)
+            or
+            (gender == "Female" and height >= 157)
+        )
+    ):
         jobs.append("CAPF Assistant Commandant")
 
-    # 8th Pass
+    # -----------------------------------------
+    # 8TH PASS
+    # -----------------------------------------
+
     if qualification == "8th":
         jobs.append("Defence Support / Trades Vacancies")
 
+    # -----------------------------------------
     # ITI
+    # -----------------------------------------
+
     if qualification == "ITI":
         jobs.append("Defence Technical / Trades Vacancies")
 
-    # Diploma
+    # -----------------------------------------
+    # DIPLOMA
+    # -----------------------------------------
+
     if qualification == "Diploma":
         jobs.append("Defence Technical Vacancies")
 
-    # Post Graduate
+    # -----------------------------------------
+    # POST GRADUATE
+    # -----------------------------------------
+
     if qualification == "Post Graduate":
         jobs.append("Defence Specialist / Officer Vacancies")
 
-    # B.Tech / B.E.
+    # -----------------------------------------
+    # B.TECH / B.E.
+    # -----------------------------------------
+
     if qualification == "B.Tech/B.E.":
         jobs.append("Defence Engineering / Technical Vacancies")
 
-    # B.Sc
+    # -----------------------------------------
+    # B.SC
+    # -----------------------------------------
+
     if qualification == "B.Sc":
         jobs.append("Defence Science / Technical Vacancies")
 
-    # B.Com
+    # -----------------------------------------
+    # B.COM
+    # -----------------------------------------
+
     if qualification == "B.Com":
         jobs.append("Defence Accounts / Administrative Vacancies")
 
+    # -----------------------------------------
     # B.A.
+    # -----------------------------------------
+
     if qualification == "B.A.":
         jobs.append("Defence Administrative Vacancies")
 
-    # M.Tech / M.E.
+    # -----------------------------------------
+    # M.TECH / M.E.
+    # -----------------------------------------
+
     if qualification == "M.Tech/M.E.":
         jobs.append("Defence Engineering / Specialist Vacancies")
 
-    # Other
+    # -----------------------------------------
+    # OTHER
+    # -----------------------------------------
+
     if qualification == "Other":
         jobs.append("Other Defence Vacancies")
 
-    return render_template("result.html", jobs=jobs)
-
-
-# =========================================================
-# NOTIFICATIONS
-# =========================================================
-
-@app.route("/notifications")
-def notifications():
-
-    organization = request.args.get("organization")
-
-    conn = get_db()
-    cursor = conn.cursor()
-
-    if organization:
-
-        cursor.execute(
-            """
-            SELECT *
-            FROM notifications
-            WHERE organization=%s
-            ORDER BY id DESC
-            """,
-            (organization,)
-        )
-
-    else:
-
-        cursor.execute(
-            """
-            SELECT *
-            FROM notifications
-            ORDER BY id DESC
-            """
-        )
-
-    jobs = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
+    # -----------------------------------------
+    # RESULT
+    # -----------------------------------------
 
     return render_template(
-        "notifications.html",
+        "result.html",
         jobs=jobs,
-        organization=organization
+        age=age,
+        gender=gender,
+        height=height,
+        qualification=qualification
     )
-
-
-# =========================================================
-# ARMY JOBS
-# =========================================================
-
-@app.route("/army-jobs")
-def army_jobs():
-
-    conn = get_db()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT *
-        FROM notifications
-        WHERE organization ILIKE %s
-        ORDER BY id DESC
-    """, ("%Army%",))
-
-    jobs = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
-
-    return render_template(
-        "notifications.html",
-        jobs=jobs
-    )
-
-
 # =========================================================
 # NAVY JOBS
 # =========================================================

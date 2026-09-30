@@ -1,15 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dhrub Defence Career Finder</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
+    <!-- SEO TITLE -->
+    <title>
+        Dhrub Defence Career Finder | Defence Jobs & Career Opportunities
+    </title>
+
+    <!-- SEO DESCRIPTION -->
     <meta name="description"
-          content="Dhrub Defence Career Finder - Your gateway to Army, Navy, Air Force and other defence career opportunities.">
+          content="Dhrub Defence Career Finder helps you discover Indian Army, Navy, Air Force, CAPF and other defence job opportunities, vacancies and eligibility information.">
+
+    <!-- SEO KEYWORDS -->
+    <meta name="keywords"
+          content="Dhrub, Dhrub Defence Career Finder, Defence Career Finder, Defence Jobs, Army Jobs, Indian Army Jobs, Navy Jobs, Air Force Jobs, CAPF Jobs, Defence Vacancy, Defence Recruitment, Defence Career, Defence Eligibility">
+
+    <!-- SEARCH ENGINE -->
+    <meta name="robots"
+          content="index, follow">
+
+    <!-- AUTHOR -->
+    <meta name="author"
+          content="Dhrub Defence Career Finder">
+
+    <!-- CANONICAL URL -->
+    <link rel="canonical"
+          href="https://dhrub-defence-career-finder.vercel.app/">
+
+    <!-- OPEN GRAPH / SOCIAL SHARING -->
+    <meta property="og:type"
+          content="website">
+
+    <meta property="og:title"
+          content="Dhrub Defence Career Finder">
+
+    <meta property="og:description"
+          content="Find Defence Jobs, Army, Navy, Air Force, CAPF opportunities and check your eligibility.">
+
+    <meta property="og:url"
+          content="https://dhrub-defence-career-finder.vercel.app/">
+
+    <meta property="og:site_name"
+          content="Dhrub Defence Career Finder">
+
+    <!-- TWITTER / SOCIAL -->
+    <meta name="twitter:card"
+          content="summary">
+
+    <meta name="twitter:title"
+          content="Dhrub Defence Career Finder">
+
+    <meta name="twitter:description"
+          content="Your gateway to Defence Jobs, Army, Navy, Air Force, CAPF and career opportunities.">
+
+
+    <!-- STRUCTURED DATA : WEBSITE -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Dhrub Defence Career Finder",
+        "alternateName": "Dhrub",
+        "url": "https://dhrub-defence-career-finder.vercel.app/"
+    }
+    </script>
+
+
+    <!-- STRUCTURED DATA : ORGANIZATION -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Dhrub Defence Career Finder",
+        "alternateName": "Dhrub",
+        "url": "https://dhrub-defence-career-finder.vercel.app/"
+    }
+    </script>
+
 
     <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
         * {
             margin: 0;
             padding: 0;
@@ -17,58 +99,212 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+
+        /* ==============================
+           BODY
+        ============================== */
+
         body {
+
             min-height: 100vh;
+
             overflow: hidden;
+
             background:
-                radial-gradient(circle at 20% 20%, rgba(255,215,0,0.12), transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(0,170,255,0.12), transparent 30%),
-                linear-gradient(135deg, #00152e, #002b5b, #00101f);
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(255, 215, 0, 0.14),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 85% 75%,
+                    rgba(0, 170, 255, 0.14),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 50% 50%,
+                    rgba(0, 100, 200, 0.08),
+                    transparent 45%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #00101f,
+                    #002b5b,
+                    #00152e,
+                    #000b17
+                );
+
             color: white;
+
+            position: relative;
         }
+
+
+        /* ==============================
+           PAGE
+        ============================== */
 
         .page {
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             position: relative;
+
             padding: 30px;
+
+            overflow: hidden;
         }
 
-        /* Background circles */
-        .circle {
+
+        /* ==============================
+           GLOW EFFECTS
+        ============================== */
+
+        .glow {
+
             position: absolute;
+
+            width: 500px;
+
+            height: 500px;
+
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.12);
-            animation: float 8s ease-in-out infinite;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255, 215, 0, 0.08),
+                    transparent 70%
+                );
+
+            filter: blur(20px);
+
+            animation: glowMove 10s ease-in-out infinite;
         }
+
+        .glow.one {
+
+            top: -250px;
+
+            left: -180px;
+        }
+
+        .glow.two {
+
+            bottom: -260px;
+
+            right: -180px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0, 170, 255, 0.09),
+                    transparent 70%
+                );
+
+            animation-delay: 3s;
+        }
+
+
+        @keyframes glowMove {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -25px);
+            }
+        }
+
+
+        /* ==============================
+           BACKGROUND CIRCLES
+        ============================== */
+
+        .circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.10);
+
+            animation:
+                float 8s ease-in-out infinite;
+        }
+
 
         .circle.one {
+
             width: 420px;
+
             height: 420px;
+
             top: -180px;
+
             left: -150px;
         }
 
+
         .circle.two {
+
             width: 550px;
+
             height: 550px;
+
             bottom: -300px;
+
             right: -180px;
+
             animation-delay: 2s;
         }
 
+
         .circle.three {
+
             width: 180px;
+
             height: 180px;
+
             top: 15%;
+
             right: 12%;
+
             animation-delay: 1s;
         }
 
+
+        .circle.four {
+
+            width: 100px;
+
+            height: 100px;
+
+            bottom: 15%;
+
+            left: 10%;
+
+            animation-delay: 4s;
+        }
+
+
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
 
@@ -77,230 +313,689 @@
             }
         }
 
+
+        /* ==============================
+           CONTENT
+        ============================== */
+
         .content {
+
             position: relative;
-            z-index: 2;
+
+            z-index: 5;
+
             width: 100%;
+
             max-width: 1050px;
+
             text-align: center;
+
+            animation:
+                pageAppear 1.2s ease;
         }
+
+
+        @keyframes pageAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.98);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* ==============================
+           BADGE
+        ============================== */
 
         .badge {
-            display: inline-block;
-            padding: 9px 22px;
-            border: 1px solid rgba(255,215,0,0.6);
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 10px 23px;
+
+            border:
+                1px solid
+                rgba(255, 215, 0, 0.65);
+
             border-radius: 50px;
+
             color: #FFD700;
-            font-size: 14px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
             letter-spacing: 2px;
-            margin-bottom: 25px;
-            background: rgba(255,215,0,0.06);
+
+            margin-bottom: 24px;
+
+            background:
+                rgba(255, 215, 0, 0.07);
+
+            box-shadow:
+                0 0 25px
+                rgba(255, 215, 0, 0.08);
+
+            backdrop-filter: blur(8px);
+
+            animation:
+                badgeGlow 3s ease-in-out infinite;
         }
+
+
+        @keyframes badgeGlow {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 20px
+                    rgba(255, 215, 0, 0.05);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 30px
+                    rgba(255, 215, 0, 0.16);
+            }
+        }
+
+
+        /* ==============================
+           LOGO
+        ============================== */
 
         .logo {
-            font-size: 68px;
+
+            font-size: 76px;
+
             font-weight: 900;
-            letter-spacing: 4px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 25px rgba(255,215,0,0.18);
+
+            letter-spacing: 7px;
+
+            margin-bottom: 4px;
+
+            line-height: 1;
+
+            text-shadow:
+                0 0 20px
+                rgba(255, 215, 0, 0.10);
         }
+
 
         .logo span {
+
             color: #FFD700;
+
+            text-shadow:
+                0 0 25px
+                rgba(255, 215, 0, 0.30);
         }
+
+
+        /* ==============================
+           SUBTITLE
+        ============================== */
 
         .subtitle {
-            font-size: 20px;
+
+            font-size: 21px;
+
+            font-weight: 600;
+
             color: #dce8f5;
-            letter-spacing: 1px;
-            margin-bottom: 18px;
+
+            letter-spacing: 2px;
+
+            margin-top: 12px;
+
+            margin-bottom: 20px;
         }
 
+
+        /* ==============================
+           TAGLINE
+        ============================== */
+
         .tagline {
-            max-width: 720px;
-            margin: 0 auto 38px;
+
+            max-width: 760px;
+
+            margin: 0 auto 18px;
+
             color: #b9c9d9;
+
             font-size: 16px;
+
             line-height: 1.7;
         }
 
-        .services {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-bottom: 42px;
+
+        /* ==============================
+           SEO INTRO
+        ============================== */
+
+        .seo-intro {
+
+            max-width: 760px;
+
+            margin: 0 auto 30px;
+
+            color: rgba(255, 255, 255, 0.65);
+
+            font-size: 14px;
+
+            line-height: 1.7;
         }
+
+
+        /* ==============================
+           SERVICES
+        ============================== */
+
+        .services {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-bottom: 40px;
+        }
+
 
         .service {
-            padding: 12px 20px;
+
+            padding: 11px 19px;
+
             border-radius: 12px;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.12);
+
+            background:
+                rgba(255, 255, 255, 0.065);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+
             color: #f2f6fa;
+
             font-size: 14px;
-            transition: 0.3s;
+
+            font-weight: 600;
+
+            transition:
+                transform 0.3s,
+                border-color 0.3s,
+                color 0.3s,
+                background 0.3s;
+
+            backdrop-filter: blur(7px);
         }
+
 
         .service:hover {
-            transform: translateY(-4px);
-            border-color: #FFD700;
-            color: #FFD700;
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                #FFD700;
+
+            color:
+                #FFD700;
+
+            background:
+                rgba(255, 215, 0, 0.07);
+
+            box-shadow:
+                0 8px 25px
+                rgba(255, 215, 0, 0.08);
         }
+
+
+        /* ==============================
+           START BUTTON
+        ============================== */
 
         .start-btn {
+
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
-            gap: 10px;
-            min-width: 220px;
-            padding: 16px 35px;
+
+            gap: 12px;
+
+            min-width: 225px;
+
+            padding: 16px 36px;
+
             border: none;
+
             border-radius: 50px;
-            background: linear-gradient(135deg, #FFD700, #ffb700);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #FFD700,
+                    #ffb700
+                );
+
             color: #00152e;
+
             font-size: 17px;
+
             font-weight: 800;
+
             letter-spacing: 1px;
+
             text-decoration: none;
+
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255,215,0,0.22);
-            transition: 0.3s;
+
+            box-shadow:
+                0 10px 30px
+                rgba(255, 215, 0, 0.22);
+
+            transition:
+                0.3s;
+
+            position: relative;
+
+            overflow: hidden;
         }
+
+
+        .start-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -100%;
+
+            width: 70%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.45),
+                    transparent
+                );
+
+            transform:
+                skewX(-20deg);
+
+            animation:
+                buttonShine 3.5s infinite;
+        }
+
+
+        @keyframes buttonShine {
+
+            0% {
+                left: -100%;
+            }
+
+            45%,
+            100% {
+                left: 130%;
+            }
+        }
+
 
         .start-btn:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(255,215,0,0.35);
+
+            transform:
+                translateY(-4px)
+                scale(1.03);
+
+            box-shadow:
+                0 15px 40px
+                rgba(255, 215, 0, 0.38);
         }
+
 
         .arrow {
-            font-size: 22px;
-            transition: 0.3s;
+
+            font-size: 23px;
+
+            transition:
+                transform 0.3s;
         }
+
 
         .start-btn:hover .arrow {
-            transform: translateX(5px);
+
+            transform:
+                translateX(6px);
         }
+
+
+        /* ==============================
+           BOTTOM TEXT
+        ============================== */
 
         .bottom-text {
-            margin-top: 35px;
+
+            margin-top: 32px;
+
             color: #8295a8;
-            font-size: 12px;
-            letter-spacing: 1.5px;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
         }
 
-        /* Mobile */
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
         @media (max-width: 600px) {
 
-            .page {
-                padding: 20px;
+            body {
+                overflow: auto;
             }
+
+
+            .page {
+
+                min-height: 100vh;
+
+                padding:
+                    25px 18px;
+            }
+
 
             .logo {
-                font-size: 42px;
-                letter-spacing: 2px;
+
+                font-size: 46px;
+
+                letter-spacing: 3px;
             }
+
 
             .subtitle {
+
                 font-size: 16px;
+
+                letter-spacing: 1px;
             }
+
 
             .tagline {
+
                 font-size: 14px;
+
+                line-height: 1.6;
             }
 
+
+            .seo-intro {
+
+                font-size: 13px;
+
+                line-height: 1.6;
+            }
+
+
             .services {
+
                 gap: 8px;
+
                 margin-bottom: 30px;
             }
 
+
             .service {
-                padding: 9px 13px;
+
+                padding:
+                    9px 13px;
+
                 font-size: 12px;
             }
 
-            .start-btn {
-                min-width: 200px;
-                padding: 14px 25px;
-            }
-        }
-    </style>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Dhrub Defence Career Finder",
-  "alternateName": "Dhrub",
-  "url": "https://dhrub-defence-career-finder.vercel.app/"
-}
-</script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Dhrub Defence Career Finder",
-  "alternateName": "Dhrub",
-  "url": "https://dhrub-defence-career-finder.vercel.app/"
-}
-</script>
+            .start-btn {
+
+                min-width: 205px;
+
+                padding:
+                    14px 25px;
+
+                font-size: 15px;
+            }
+
+
+            .bottom-text {
+
+                font-size: 9px;
+
+                letter-spacing: 1.2px;
+            }
+
+
+            .circle.three,
+            .circle.four {
+
+                display: none;
+            }
+
+        }
+
+
+        /* ==============================
+           SMALL MOBILE
+        ============================== */
+
+        @media (max-width: 380px) {
+
+            .logo {
+
+                font-size: 40px;
+            }
+
+            .badge {
+
+                font-size: 10px;
+
+                letter-spacing: 1px;
+
+                padding:
+                    8px 15px;
+            }
+
+            .subtitle {
+
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
     <div class="page">
 
+
+        <!-- Background Glow -->
+
+        <div class="glow one"></div>
+
+        <div class="glow two"></div>
+
+
+        <!-- Background Circles -->
+
         <div class="circle one"></div>
+
         <div class="circle two"></div>
+
         <div class="circle three"></div>
+
+        <div class="circle four"></div>
+
+
+        <!-- Main Content -->
 
         <div class="content">
 
+
+            <!-- Portal Badge -->
+
             <div class="badge">
-                🇮🇳 DEFENCE CAREER PORTAL
+
+                🇮🇳 &nbsp; DEFENCE CAREER PORTAL
+
             </div>
+
+
+            <!-- Brand -->
 
             <div class="logo">
+
                 D<span>H</span>RUB
+
             </div>
+
+
+            <!-- Website Name -->
 
             <div class="subtitle">
+
                 Defence Career Finder
+
             </div>
 
+
+            <!-- Main Description -->
+
             <div class="tagline">
-                Your gateway to Army, Navy, Air Force, CAPF and
-                other defence career opportunities.
+
+                Your gateway to Indian Army, Navy, Air Force,
+                CAPF and other defence career opportunities.
                 Discover opportunities. Check eligibility.
                 Build your future.
+
             </div>
+
+
+            <!-- SEO Friendly Visible Content -->
+
+            <p class="seo-intro">
+
+                <strong>Dhrub Defence Career Finder</strong> helps
+                students and defence aspirants discover
+                defence jobs, latest vacancies and eligibility
+                information for Army, Navy, Air Force and CAPF
+                opportunities.
+
+            </p>
+
+
+            <!-- Services -->
 
             <div class="services">
 
-                <div class="service">⚔️ Army</div>
 
-                <div class="service">⚓ Navy</div>
+                <div class="service">
 
-                <div class="service">✈️ Air Force</div>
+                    ⚔️ Army
 
-                <div class="service">🛡️ CAPF</div>
+                </div>
 
-                <div class="service">📋 Eligibility</div>
+
+                <div class="service">
+
+                    ⚓ Navy
+
+                </div>
+
+
+                <div class="service">
+
+                    ✈️ Air Force
+
+                </div>
+
+
+                <div class="service">
+
+                    🛡️ CAPF
+
+                </div>
+
+
+                <div class="service">
+
+                    📋 Eligibility
+
+                </div>
+
 
             </div>
 
-            <a href="{{ url_for('login') }}" class="start-btn">
+
+            <!-- Start Button -->
+
+            <a href="{{ url_for('login') }}"
+               class="start-btn">
+
                 GET STARTED
-                <span class="arrow">→</span>
+
+                <span class="arrow">
+
+                    →
+
+                </span>
+
             </a>
 
+
+            <!-- Bottom -->
+
             <div class="bottom-text">
+
                 BUILD YOUR FUTURE • SERVE THE NATION 🇮🇳
+
             </div>
+
 
         </div>
 
     </div>
 
 </body>
+
 </html>
