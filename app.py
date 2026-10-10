@@ -181,9 +181,9 @@ def notifications():
 
     return render_template(
         "notifications.html",
-        notifications=notifications_list
+        jobs=notifications_list,
+        organization=None
     )
-
 
 # =========================================================
 # SIGNUP
