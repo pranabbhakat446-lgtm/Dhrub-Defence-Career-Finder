@@ -163,6 +163,28 @@ def home():
     return render_template("home.html")
 
 
+@app.route("/notifications")
+def notifications():
+    if "user" not in session:
+        return redirect("/")
+
+    conn = get_db()
+
+    try:
+        with conn.cursor(row_factory=dict_row) as cur:
+            cur.execute(
+                "SELECT * FROM notifications ORDER BY id DESC"
+            )
+            notifications_list = cur.fetchall()
+    finally:
+        conn.close()
+
+    return render_template(
+        "notifications.html",
+        notifications=notifications_list
+    )
+
+
 # =========================================================
 # SIGNUP
 # =========================================================
